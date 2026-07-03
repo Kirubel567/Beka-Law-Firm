@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+@theme {
+  /* Material palette — basalt, parchment, brass, terracotta */
+  --color-basalt-950: #12100d;
+  --color-basalt-900: #17140f;
+  --color-basalt-800: #211d16;
+  --color-basalt-700: #2e2920;
+  --color-basalt-600: #443d31;
+
+  --color-parchment-50: #faf7f0;
+  --color-parchment-100: #f4efe3;
+  --color-parchment-200: #eae2d0;
+  --color-parchment-300: #d9cdb4;
+
+  --color-brass-300: #d6b878;
+  --color-brass-400: #c4a25c;
+  --color-brass-500: #a8823e;
+  --color-brass-600: #8c6a30;
+
+  --color-terracotta-500: #a65e3f;
+  --color-terracotta-600: #8f4d32;
+
+  --color-ink-500: #4c463b;
+  --color-ink-700: #2e2a22;
+
+  /* Weight-settling easing — stone and metal, not rubber */
+  --ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Font tokens reference next/font runtime variables, so they must be
+   inlined at the point of use rather than resolved at :root. */
+@theme inline {
+  --font-display: var(--font-cormorant), var(--font-ethioserif), Georgia, serif;
+  --font-body: var(--font-outfit), var(--font-ethiosans), system-ui, sans-serif;
+}
+
+/* base styles live in the base layer so page-level utilities
+   (e.g. the portal's bg-basalt-950 body) can override them */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-parchment-100);
+    color: var(--color-ink-700);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-brass-400);
+    color: var(--color-basalt-950);
+  }
+}
+
+/* Amharic typesetting — same care, tuned metrics */
+[lang="am"] {
+  letter-spacing: 0 !important;
+}
+[lang="am"] .font-display {
+  line-height: 1.35;
+}
+[lang="am"] p,
+[lang="am"] li {
+  line-height: 1.9;
+}
+
+/* Parchment grain — a whisper of vellum, not a texture pack */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Basalt relief for dark sections */
+.basalt-relief {
+  background-color: var(--color-basalt-900);
+  background-image:
+    radial-gradient(1200px 600px at 70% -10%, rgba(214, 184, 120, 0.06), transparent 60%),
+    radial-gradient(900px 500px at 10% 110%, rgba(166, 94, 63, 0.05), transparent 60%);
+}
+
+/* Hairline rules in brass */
+.rule-brass {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--color-brass-500) 20%, var(--color-brass-500) 80%, transparent);
+  opacity: 0.5;
+}
+
+/* Editorial link — underline that settles in */
+.link-quiet {
+  position: relative;
+  transition: color 0.4s var(--ease-settle);
+}
+.link-quiet::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease-settle);
+}
+.link-quiet:hover::after {
+  transform: scaleX(1);
+}
+
+/* Small caps label */
+.label-caps {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* Focus visibly, quietly */
+:focus-visible {
+  outline: 1px solid var(--color-brass-500);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
