@@ -9,6 +9,8 @@ export interface CmsItem {
   order: number;
   slug?: string;
   date?: string;
+  /** uploaded image path (e.g. a portrait) — not localized */
+  image?: string | null;
   createdAt: string;
   updatedAt: string;
   /** per-language content; English is the base, other locales fall back to it field-by-field */
@@ -39,6 +41,9 @@ export interface CollectionDef {
   titleField: string;
   hasSlug: boolean;
   hasDate: boolean;
+  /** whether entries carry an uploaded image (e.g. portraits for people) */
+  hasImage: boolean;
+  imageLabel?: string;
   /** all content fields are localized — entered per language, independently */
   fields: FieldDef[];
 }
