@@ -12,6 +12,7 @@ export const collections: CollectionDef[] = [
     titleField: "attribution",
     hasSlug: false,
     hasDate: false,
+    hasImage: false,
     fields: [
       { name: "text", label: "Remark", type: "textarea", required: true },
       {
@@ -30,6 +31,7 @@ export const collections: CollectionDef[] = [
     titleField: "title",
     hasSlug: true,
     hasDate: true,
+    hasImage: false,
     fields: [
       { name: "title", label: "Title", type: "text", required: true },
       { name: "category", label: "Category", type: "text", hint: "e.g. Investment, Disputes, Regulation" },
@@ -51,6 +53,8 @@ export const collections: CollectionDef[] = [
     titleField: "name",
     hasSlug: true,
     hasDate: false,
+    hasImage: true,
+    imageLabel: "Portrait",
     fields: [
       { name: "name", label: "Name", type: "text", required: true },
       { name: "role", label: "Role", type: "text", hint: "e.g. Founding & Managing Partner" },
@@ -67,6 +71,7 @@ export const collections: CollectionDef[] = [
     titleField: "headline",
     hasSlug: false,
     hasDate: false,
+    hasImage: false,
     fields: [
       { name: "sector", label: "Sector label", type: "text", hint: "e.g. Corporate / Cross-border" },
       { name: "headline", label: "Headline", type: "textarea", required: true },
