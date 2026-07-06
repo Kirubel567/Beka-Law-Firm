@@ -5,6 +5,11 @@ import { NextResponse } from "next/server";
 const ALLOWED = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
 const MAX_BYTES = 8 * 1024 * 1024;
 
+/**
+ * Uploads land in data/uploads (not public/) and are served by the
+ * /uploads/[name] route handler — files in public/ are snapshotted at build
+ * time, so anything uploaded after `next build` would otherwise 404.
+ */
 export async function POST(req: Request) {
   const form = await req.formData();
   const file = form.get("file");
@@ -27,7 +32,7 @@ export async function POST(req: Request) {
     .replace(/[^a-z0-9-]+/g, "-")
     .slice(0, 48);
   const name = `${Date.now()}-${safeBase}${ext}`;
-  const dir = path.join(process.cwd(), "public", "uploads");
+  const dir = path.join(process.cwd(), "data", "uploads");
   fs.mkdirSync(dir, { recursive: true });
   const buffer = Buffer.from(await file.arrayBuffer());
   fs.writeFileSync(path.join(dir, name), buffer);
