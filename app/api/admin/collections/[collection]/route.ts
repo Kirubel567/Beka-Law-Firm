@@ -26,6 +26,7 @@ export async function POST(req: Request, { params }: Params) {
     order: typeof body.order === "number" ? body.order : listItems(collection).length + 1,
     slug: body.slug,
     date: body.date,
+    image: typeof body.image === "string" && body.image.length > 0 ? body.image : null,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     locales: body.locales ?? {},

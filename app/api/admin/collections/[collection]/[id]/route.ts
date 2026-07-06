@@ -22,6 +22,12 @@ export async function PUT(req: Request, { params }: Params) {
     order: typeof body.order === "number" ? body.order : existing.order,
     slug: body.slug ?? existing.slug,
     date: body.date ?? existing.date,
+    image:
+      body.image === undefined
+        ? existing.image
+        : typeof body.image === "string" && body.image.length > 0
+          ? body.image
+          : null,
     locales: body.locales ?? existing.locales,
   };
   return NextResponse.json(upsertItem(collection, item));
