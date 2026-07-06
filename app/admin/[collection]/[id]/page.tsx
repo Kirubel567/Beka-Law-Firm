@@ -19,7 +19,7 @@ export default async function EditorPage({
   if (id !== "new" && !item) notFound();
 
   return (
-    <>
+    <div className="mx-auto max-w-5xl">
       <Link href={`/admin/${collection}`} className="label-caps text-parchment-200/50 hover:text-brass-300">
         ← {def.label}
       </Link>
@@ -27,6 +27,6 @@ export default async function EditorPage({
         {item ? "Edit entry" : "New entry"}
       </h1>
       <EditorForm def={def} item={item ?? null} />
-    </>
+    </div>
   );
 }

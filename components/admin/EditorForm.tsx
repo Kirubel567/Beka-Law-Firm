@@ -71,8 +71,22 @@ export default function EditorForm({
   const [slug, setSlug] = useState(item?.slug ?? "");
   const [date, setDate] = useState(item?.date ?? new Date().toISOString().slice(0, 10));
   const [order, setOrder] = useState(item?.order ?? 99);
+  const [image, setImage] = useState(item?.image ?? "");
+  const [uploading, setUploading] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const uploadImage = async (file: File) => {
+    setUploading(true);
+    setError(null);
+    const fd = new FormData();
+    fd.append("file", file);
+    const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
+    const data = (await res.json().catch(() => ({}))) as { url?: string; error?: string };
+    if (res.ok && data.url) setImage(data.url);
+    else setError(data.error ?? "Upload failed.");
+    setUploading(false);
+  };
 
   const [text, setText] = useState<Record<Locale, Record<string, string>>>(() => {
     const initial = {} as Record<Locale, Record<string, string>>;
@@ -105,6 +119,7 @@ export default function EditorForm({
       order: Number(order) || 99,
       slug: finalSlug,
       date: def.hasDate ? date : undefined,
+      image: def.hasImage ? image || null : undefined,
       locales,
     };
     const res = item
@@ -210,6 +225,42 @@ export default function EditorForm({
           </p>
         </div>
 
+        {def.hasImage && (
+          <div>
+            <span className={labelCls}>{def.imageLabel ?? "Image"}</span>
+            {image ? (
+              <div className="border border-parchment-100/15">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={image} alt="" className="aspect-[4/5] w-full object-cover" />
+                <button
+                  type="button"
+                  onClick={() => setImage("")}
+                  className="label-caps w-full py-2.5 text-terracotta-500"
+                >
+                  Remove
+                </button>
+              </div>
+            ) : (
+              <p className="mb-2 text-xs text-parchment-200/40">
+                No portrait yet — the public site shows the seal placeholder.
+              </p>
+            )}
+            <label className="mt-2 inline-block w-full cursor-pointer border border-parchment-100/20 py-2.5 text-center text-[0.65rem] tracking-[0.15em] text-parchment-200/70 uppercase transition-colors hover:border-brass-400 hover:text-brass-300">
+              {uploading ? "Uploading…" : image ? "Replace" : "Upload"}
+              <input
+                type="file"
+                accept=".jpg,.jpeg,.png,.webp,.avif"
+                className="hidden"
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  if (f) void uploadImage(f);
+                  e.target.value = "";
+                }}
+              />
+            </label>
+          </div>
+        )}
+
         {def.hasSlug && (
           <div>
             <label htmlFor="meta-slug" className={labelCls}>
@@ -258,7 +309,7 @@ export default function EditorForm({
 
         <button
           type="button"
-          disabled={busy}
+          disabled={busy || uploading}
           onClick={save}
           className="w-full border border-brass-500/70 px-5 py-3.5 text-[0.72rem] tracking-[0.22em] text-brass-300 uppercase transition-colors hover:bg-brass-400/10 disabled:opacity-50"
         >
