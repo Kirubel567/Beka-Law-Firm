@@ -7,9 +7,9 @@ export const dynamic = "force-dynamic";
 export default function SiteSettingsPage() {
   const site = getSite();
   return (
-    <>
+    <div className="mx-auto max-w-5xl">
       <Link href="/admin" className="label-caps text-parchment-200/50 hover:text-brass-300">
-        ← Content
+        ← Dashboard
       </Link>
       <h1 className="mt-2 font-display text-3xl font-medium text-parchment-50">Site settings</h1>
       <p className="mt-2 max-w-2xl text-sm text-parchment-200/60">
@@ -17,6 +17,6 @@ export default function SiteSettingsPage() {
         contact page and in the footer.
       </p>
       <SiteForm initial={site} />
-    </>
+    </div>
   );
 }
