@@ -118,6 +118,47 @@
   transform: scaleX(1);
 }
 
+/* ——— Staff portal theming ———
+   The public site keeps its single editorial palette by design; only the
+   portal (its own root layout sets data-theme) swaps these surfaces. */
+html[data-theme="dark"] {
+  --p-bg: #12100d;
+  --p-panel: #17140f;
+  --p-hover: #211d16;
+  --p-input: #12100d;
+  --p-topbar: rgba(18, 16, 13, 0.94);
+  --p-scrim: rgba(18, 16, 13, 0.72);
+  --p-border: rgba(244, 239, 227, 0.1);
+  --p-border-2: rgba(244, 239, 227, 0.2);
+  --p-text: #faf7f0;
+  --p-text-2: rgba(234, 226, 208, 0.78);
+  --p-text-3: rgba(234, 226, 208, 0.55);
+  --p-text-4: rgba(234, 226, 208, 0.36);
+  --p-accent: #d6b878;
+  --p-accent-2: rgba(196, 162, 92, 0.8);
+  --p-alert: #a65e3f;
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  --p-bg: #f4efe3;
+  --p-panel: #faf7f0;
+  --p-hover: #ece5d3;
+  --p-input: #faf7f0;
+  --p-topbar: rgba(244, 239, 227, 0.94);
+  --p-scrim: rgba(33, 29, 22, 0.35);
+  --p-border: rgba(33, 29, 22, 0.13);
+  --p-border-2: rgba(33, 29, 22, 0.24);
+  --p-text: #211d16;
+  --p-text-2: rgba(46, 42, 34, 0.8);
+  --p-text-3: rgba(46, 42, 34, 0.6);
+  --p-text-4: rgba(46, 42, 34, 0.42);
+  --p-accent: #8c6a30;
+  --p-accent-2: #a8823e;
+  --p-alert: #8f4d32;
+  color-scheme: light;
+}
+
 /* Scrollable areas that shouldn't show a scrollbar (portal sidebar) */
 .no-scrollbar {
   scrollbar-width: none;
