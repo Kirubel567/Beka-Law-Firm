@@ -42,35 +42,35 @@ export default function SiteForm({ initial }: { initial: SiteSettings }) {
   };
 
   const input =
-    "w-full border border-parchment-100/15 bg-basalt-950 px-4 py-3 text-sm text-parchment-100 focus:border-brass-400 focus:outline-none transition-colors";
-  const labelCls = "label-caps mb-1.5 block text-parchment-200/60";
+    "w-full border border-(--p-border-2) bg-(--p-input) px-4 py-3 text-sm text-(--p-text) focus:border-(--p-accent-2) focus:outline-none transition-colors";
+  const labelCls = "label-caps mb-1.5 block text-(--p-text-3)";
 
   return (
     <div className="mt-8 max-w-2xl space-y-8">
       <div>
         <span className={labelCls}>Homepage hero image</span>
         {heroImage ? (
-          <div className="border border-parchment-100/15">
+          <div className="border border-(--p-border-2)">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={heroImage} alt="Hero preview" className="max-h-64 w-full object-cover" />
             <div className="flex items-center justify-between px-4 py-3">
-              <span className="truncate text-xs text-parchment-200/50">{heroImage}</span>
+              <span className="truncate text-xs text-(--p-text-3)">{heroImage}</span>
               <button
                 type="button"
                 onClick={() => setHeroImage("")}
-                className="label-caps text-terracotta-500"
+                className="label-caps text-(--p-alert)"
               >
                 Remove
               </button>
             </div>
           </div>
         ) : (
-          <p className="mb-3 text-xs text-parchment-200/40">
+          <p className="mb-3 text-xs text-(--p-text-4)">
             No image set — the hero uses the carved-seal design. An uploaded
             photograph appears behind it with a basalt overlay.
           </p>
         )}
-        <label className="mt-3 inline-block cursor-pointer border border-parchment-100/20 px-5 py-3 text-[0.7rem] tracking-[0.18em] text-parchment-200/80 uppercase transition-colors hover:border-brass-400 hover:text-brass-300">
+        <label className="mt-3 inline-block cursor-pointer border border-(--p-border-2) px-5 py-3 text-[0.7rem] tracking-[0.18em] text-(--p-text-2) uppercase transition-colors hover:border-(--p-accent-2) hover:text-(--p-accent)">
           {uploading ? "Uploading…" : heroImage ? "Replace image" : "Upload image"}
           <input
             type="file"
@@ -113,13 +113,13 @@ export default function SiteForm({ initial }: { initial: SiteSettings }) {
         />
       </div>
 
-      {msg && <p className="text-sm text-brass-300">{msg}</p>}
+      {msg && <p className="text-sm text-(--p-accent)">{msg}</p>}
 
       <button
         type="button"
         disabled={busy || uploading}
         onClick={save}
-        className="border border-brass-500/70 px-7 py-3.5 text-[0.72rem] tracking-[0.22em] text-brass-300 uppercase transition-colors hover:bg-brass-400/10 disabled:opacity-50"
+        className="border border-(--p-accent-2) px-7 py-3.5 text-[0.72rem] tracking-[0.22em] text-(--p-accent) uppercase transition-colors hover:bg-(--p-hover) disabled:opacity-50"
       >
         {busy ? "Saving…" : "Save settings"}
       </button>

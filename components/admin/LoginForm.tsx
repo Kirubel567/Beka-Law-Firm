@@ -29,27 +29,27 @@ export default function LoginForm() {
   };
 
   const field =
-    "w-full border-b border-parchment-100/20 bg-transparent py-3 text-parchment-100 focus:border-brass-400 focus:outline-none transition-colors";
+    "w-full border-b border-(--p-border-2) bg-transparent py-3 text-(--p-text) focus:border-(--p-accent-2) focus:outline-none transition-colors";
 
   return (
     <form onSubmit={onSubmit} className="mt-10 space-y-8">
       <div>
-        <label htmlFor="lg-user" className="label-caps mb-1 block text-parchment-200/60">
+        <label htmlFor="lg-user" className="label-caps mb-1 block text-(--p-text-3)">
           Username
         </label>
         <input id="lg-user" name="username" type="text" required autoComplete="username" className={field} />
       </div>
       <div>
-        <label htmlFor="lg-pass" className="label-caps mb-1 block text-parchment-200/60">
+        <label htmlFor="lg-pass" className="label-caps mb-1 block text-(--p-text-3)">
           Password
         </label>
         <input id="lg-pass" name="password" type="password" required autoComplete="current-password" className={field} />
       </div>
-      {error && <p className="text-sm text-terracotta-500">{error}</p>}
+      {error && <p className="text-sm text-(--p-alert)">{error}</p>}
       <button
         type="submit"
         disabled={busy}
-        className="w-full border border-brass-500/70 px-6 py-3.5 text-[0.72rem] tracking-[0.22em] text-brass-300 uppercase transition-colors hover:bg-brass-400/10 disabled:opacity-50"
+        className="w-full border border-(--p-accent-2) px-6 py-3.5 text-[0.72rem] tracking-[0.22em] text-(--p-accent) uppercase transition-colors hover:bg-(--p-hover) disabled:opacity-50"
       >
         {busy ? "Signing in…" : "Enter the portal"}
       </button>

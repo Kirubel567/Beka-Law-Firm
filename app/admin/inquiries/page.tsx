@@ -9,42 +9,42 @@ export default function InquiriesPage() {
 
   return (
     <div className="mx-auto max-w-5xl">
-      <Link href="/admin" className="label-caps text-parchment-200/50 hover:text-brass-300">
+      <Link href="/admin" className="label-caps text-(--p-text-3) hover:text-(--p-accent)">
         ← Dashboard
       </Link>
-      <h1 className="mt-2 font-display text-3xl font-medium text-parchment-50">Inquiries</h1>
-      <p className="mt-2 max-w-2xl text-sm text-parchment-200/60">
+      <h1 className="mt-2 font-display text-3xl font-medium text-(--p-text)">Inquiries</h1>
+      <p className="mt-2 max-w-2xl text-sm text-(--p-text-3)">
         Consultation requests from the public site, newest first. These are
         confidential correspondence — treat them accordingly.
       </p>
 
       <div className="mt-8 space-y-5">
         {inquiries.length === 0 && (
-          <p className="border border-parchment-100/10 bg-basalt-900 p-8 text-sm text-parchment-200/50">
+          <p className="border border-(--p-border) bg-(--p-panel) p-8 text-sm text-(--p-text-3)">
             No inquiries yet.
           </p>
         )}
         {inquiries.map((q) => (
-          <article key={q.id} className="border border-parchment-100/10 bg-basalt-900 p-7">
+          <article key={q.id} className="border border-(--p-border) bg-(--p-panel) p-7">
             <div className="flex flex-wrap items-baseline justify-between gap-3">
-              <h2 className="font-display text-xl text-parchment-100">
+              <h2 className="font-display text-xl text-(--p-text)">
                 {q.name}
                 {q.organization && (
-                  <span className="text-parchment-200/50"> · {q.organization}</span>
+                  <span className="text-(--p-text-3)"> · {q.organization}</span>
                 )}
               </h2>
-              <span className="text-xs text-parchment-200/40">
+              <span className="text-xs text-(--p-text-4)">
                 {new Date(q.createdAt).toLocaleString("en-GB")}
               </span>
             </div>
-            <div className="label-caps mt-2 flex flex-wrap gap-4 text-brass-400/80">
+            <div className="label-caps mt-2 flex flex-wrap gap-4 text-(--p-accent-2)">
               <span>{q.matter || "Unspecified"}</span>
               <span>· reply in {q.language || "en"}</span>
-              <a href={`mailto:${q.email}`} className="text-parchment-200/70 hover:text-brass-300">
+              <a href={`mailto:${q.email}`} className="text-(--p-text-2) hover:text-(--p-accent)">
                 {q.email}
               </a>
             </div>
-            <p className="mt-4 text-sm leading-relaxed whitespace-pre-line text-parchment-200/80">
+            <p className="mt-4 text-sm leading-relaxed whitespace-pre-line text-(--p-text-2)">
               {q.message}
             </p>
             <div className="mt-4 flex justify-end">

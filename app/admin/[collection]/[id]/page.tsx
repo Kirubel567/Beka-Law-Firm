@@ -20,10 +20,10 @@ export default async function EditorPage({
 
   return (
     <div className="mx-auto max-w-5xl">
-      <Link href={`/admin/${collection}`} className="label-caps text-parchment-200/50 hover:text-brass-300">
+      <Link href={`/admin/${collection}`} className="label-caps text-(--p-text-3) hover:text-(--p-accent)">
         ← {def.label}
       </Link>
-      <h1 className="mt-2 font-display text-3xl font-medium text-parchment-50">
+      <h1 className="mt-2 font-display text-3xl font-medium text-(--p-text)">
         {item ? "Edit entry" : "New entry"}
       </h1>
       <EditorForm def={def} item={item ?? null} />

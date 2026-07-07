@@ -19,7 +19,7 @@ export default function DeleteButton({
       <button
         type="button"
         onClick={() => setConfirming(true)}
-        className="label-caps text-parchment-200/40 transition-colors hover:text-terracotta-500"
+        className="label-caps text-(--p-text-4) transition-colors hover:text-(--p-alert)"
       >
         Delete
       </button>
@@ -35,14 +35,14 @@ export default function DeleteButton({
           await fetch(`/api/admin/collections/${collection}/${id}`, { method: "DELETE" });
           router.refresh();
         }}
-        className="label-caps text-terracotta-500"
+        className="label-caps text-(--p-alert)"
       >
         {busy ? "Removing…" : "Confirm"}
       </button>
       <button
         type="button"
         onClick={() => setConfirming(false)}
-        className="label-caps text-parchment-200/60"
+        className="label-caps text-(--p-text-3)"
       >
         Keep
       </button>

@@ -143,14 +143,14 @@ export default function EditorForm({
   };
 
   const input =
-    "w-full border border-parchment-100/15 bg-basalt-950 px-4 py-3 text-sm text-parchment-100 focus:border-brass-400 focus:outline-none transition-colors";
-  const labelCls = "label-caps mb-1.5 block text-parchment-200/60";
+    "w-full border border-(--p-border-2) bg-(--p-input) px-4 py-3 text-sm text-(--p-text) focus:border-(--p-accent-2) focus:outline-none transition-colors";
+  const labelCls = "label-caps mb-1.5 block text-(--p-text-3)";
 
   return (
     <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_16rem]">
       <div>
         {/* language tabs — the translation workflow */}
-        <div className="flex border-b border-parchment-100/15">
+        <div className="flex border-b border-(--p-border-2)">
           {LOCALES.map(({ key, label }) => (
             <button
               key={key}
@@ -158,15 +158,15 @@ export default function EditorForm({
               onClick={() => setTab(key)}
               className={`px-5 py-3 text-sm transition-colors ${
                 tab === key
-                  ? "border-b-2 border-brass-400 text-brass-300"
-                  : "text-parchment-200/50 hover:text-parchment-100"
+                  ? "border-b-2 border-(--p-accent) text-(--p-accent)"
+                  : "text-(--p-text-3) hover:text-(--p-text)"
               }`}
             >
               {label}
             </button>
           ))}
         </div>
-        <p className="mt-3 text-xs text-parchment-200/40">
+        <p className="mt-3 text-xs text-(--p-text-4)">
           {LOCALES.find((l) => l.key === tab)?.note}
         </p>
 
@@ -175,7 +175,7 @@ export default function EditorForm({
             <div key={`${tab}-${f.name}`}>
               <label htmlFor={`f-${tab}-${f.name}`} className={labelCls}>
                 {f.label}
-                {f.required && tab === "en" && <span className="text-terracotta-500"> *</span>}
+                {f.required && tab === "en" && <span className="text-(--p-alert)"> *</span>}
               </label>
               {f.type === "text" ? (
                 <input
@@ -194,14 +194,14 @@ export default function EditorForm({
                   className={`${input} resize-y leading-relaxed`}
                 />
               )}
-              {f.hint && <p className="mt-1.5 text-xs text-parchment-200/40">{f.hint}</p>}
+              {f.hint && <p className="mt-1.5 text-xs text-(--p-text-4)">{f.hint}</p>}
             </div>
           ))}
         </div>
       </div>
 
       {/* publishing sidebar */}
-      <aside className="h-fit space-y-6 border border-parchment-100/10 bg-basalt-900 p-6">
+      <aside className="h-fit space-y-6 border border-(--p-border) bg-(--p-panel) p-6">
         <div>
           <span className={labelCls}>Status</span>
           <div className="flex gap-2">
@@ -212,15 +212,15 @@ export default function EditorForm({
                 onClick={() => setStatus(s)}
                 className={`flex-1 border px-3 py-2 text-[0.68rem] tracking-[0.15em] uppercase transition-colors ${
                   status === s
-                    ? "border-brass-400 bg-brass-400/10 text-brass-300"
-                    : "border-parchment-100/15 text-parchment-200/50 hover:text-parchment-100"
+                    ? "border-(--p-accent) bg-(--p-hover) text-(--p-accent)"
+                    : "border-(--p-border-2) text-(--p-text-3) hover:text-(--p-text)"
                 }`}
               >
                 {s}
               </button>
             ))}
           </div>
-          <p className="mt-2 text-xs text-parchment-200/40">
+          <p className="mt-2 text-xs text-(--p-text-4)">
             Drafts are visible only here — never on the public site.
           </p>
         </div>
@@ -229,23 +229,23 @@ export default function EditorForm({
           <div>
             <span className={labelCls}>{def.imageLabel ?? "Image"}</span>
             {image ? (
-              <div className="border border-parchment-100/15">
+              <div className="border border-(--p-border-2)">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={image} alt="" className="aspect-[4/5] w-full object-cover" />
                 <button
                   type="button"
                   onClick={() => setImage("")}
-                  className="label-caps w-full py-2.5 text-terracotta-500"
+                  className="label-caps w-full py-2.5 text-(--p-alert)"
                 >
                   Remove
                 </button>
               </div>
             ) : (
-              <p className="mb-2 text-xs text-parchment-200/40">
+              <p className="mb-2 text-xs text-(--p-text-4)">
                 No portrait yet — the public site shows the seal placeholder.
               </p>
             )}
-            <label className="mt-2 inline-block w-full cursor-pointer border border-parchment-100/20 py-2.5 text-center text-[0.65rem] tracking-[0.15em] text-parchment-200/70 uppercase transition-colors hover:border-brass-400 hover:text-brass-300">
+            <label className="mt-2 inline-block w-full cursor-pointer border border-(--p-border-2) py-2.5 text-center text-[0.65rem] tracking-[0.15em] text-(--p-text-2) uppercase transition-colors hover:border-(--p-accent-2) hover:text-(--p-accent)">
               {uploading ? "Uploading…" : image ? "Replace" : "Upload"}
               <input
                 type="file"
@@ -305,13 +305,13 @@ export default function EditorForm({
           />
         </div>
 
-        {error && <p className="text-sm text-terracotta-500">{error}</p>}
+        {error && <p className="text-sm text-(--p-alert)">{error}</p>}
 
         <button
           type="button"
           disabled={busy || uploading}
           onClick={save}
-          className="w-full border border-brass-500/70 px-5 py-3.5 text-[0.72rem] tracking-[0.22em] text-brass-300 uppercase transition-colors hover:bg-brass-400/10 disabled:opacity-50"
+          className="w-full border border-(--p-accent-2) px-5 py-3.5 text-[0.72rem] tracking-[0.22em] text-(--p-accent) uppercase transition-colors hover:bg-(--p-hover) disabled:opacity-50"
         >
           {busy ? "Saving…" : item ? "Save changes" : "Create entry"}
         </button>

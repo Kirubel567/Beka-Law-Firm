@@ -67,44 +67,44 @@ export default function AdminDashboard() {
   return (
     <div className="mx-auto max-w-5xl">
       {/* ——— hero panel ——— */}
-      <section className="border border-parchment-100/10 bg-basalt-900 p-8 md:p-10">
-        <p className="label-caps text-brass-400">Belay Ketema &amp; Partners · Staff Portal</p>
-        <h2 className="mt-4 font-display text-4xl font-medium text-parchment-50 md:text-5xl">
+      <section className="border border-(--p-border) bg-(--p-panel) p-8 md:p-10">
+        <p className="label-caps text-(--p-accent)">Belay Ketema &amp; Partners · Staff Portal</p>
+        <h2 className="mt-4 font-display text-4xl font-medium text-(--p-text) md:text-5xl">
           The chronicle, kept current.
         </h2>
-        <p className="mt-4 max-w-xl text-sm leading-relaxed text-parchment-200/60">
+        <p className="mt-4 max-w-xl text-sm leading-relaxed text-(--p-text-3)">
           Everything on the public website is managed from here — in English, Amharic
           and Afaan Oromoo, with a draft → publish workflow. What you publish is live
           the moment you publish it.
         </p>
 
-        <div className="mt-8 grid gap-px border border-parchment-100/10 bg-parchment-100/10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid gap-px border border-(--p-border) bg-(--p-border) sm:grid-cols-2 lg:grid-cols-4">
           {quickActions.map(({ href, label, hint, Icon }) => (
             <Link
               key={href}
               href={href}
-              className="group bg-basalt-900 p-5 transition-colors hover:bg-basalt-800"
+              className="group bg-(--p-panel) p-5 transition-colors hover:bg-(--p-hover)"
             >
-              <span className="flex items-center gap-2 text-brass-400">
+              <span className="flex items-center gap-2 text-(--p-accent)">
                 <Icon className="h-4 w-4" />
                 <IconPlus className="h-3 w-3 opacity-60" />
               </span>
-              <span className="label-caps mt-3 block text-parchment-100 group-hover:text-brass-300">
+              <span className="label-caps mt-3 block text-(--p-text) group-hover:text-(--p-accent)">
                 {label}
               </span>
-              <span className="mt-1.5 block text-xs leading-snug text-parchment-200/45">{hint}</span>
+              <span className="mt-1.5 block text-xs leading-snug text-(--p-text-4)">{hint}</span>
             </Link>
           ))}
         </div>
       </section>
 
       {/* ——— stat strip ——— */}
-      <section className="grid grid-cols-2 gap-px border-x border-b border-parchment-100/10 bg-parchment-100/10 lg:grid-cols-4">
+      <section className="grid grid-cols-2 gap-px border-x border-b border-(--p-border) bg-(--p-border) lg:grid-cols-4">
         {stats.map((s) => (
-          <div key={s.label} className="bg-basalt-950 px-6 py-5">
-            <p className="label-caps text-[0.6rem] text-parchment-200/40">{s.label}</p>
-            <p className="mt-2 font-display text-3xl text-parchment-50 tabular-nums">{s.value}</p>
-            <p className="mt-1 text-[0.68rem] text-parchment-200/40">{s.sub}</p>
+          <div key={s.label} className="bg-(--p-bg) px-6 py-5">
+            <p className="label-caps text-[0.6rem] text-(--p-text-4)">{s.label}</p>
+            <p className="mt-2 font-display text-3xl text-(--p-text) tabular-nums">{s.value}</p>
+            <p className="mt-1 text-[0.68rem] text-(--p-text-4)">{s.sub}</p>
           </div>
         ))}
       </section>
@@ -112,15 +112,15 @@ export default function AdminDashboard() {
       {/* ——— 01 · needs attention ——— */}
       <section className="mt-12">
         <div className="flex items-baseline gap-4">
-          <span className="label-caps text-brass-400/70">01 · Needs attention</span>
-          <span className="h-px flex-1 bg-parchment-100/10" aria-hidden="true" />
+          <span className="label-caps text-(--p-accent-2)">01 · Needs attention</span>
+          <span className="h-px flex-1 bg-(--p-border)" aria-hidden="true" />
         </div>
         {attention.length === 0 ? (
-          <p className="mt-5 text-sm text-parchment-200/50">
+          <p className="mt-5 text-sm text-(--p-text-3)">
             Nothing waiting — every entry is published in all three languages.
           </p>
         ) : (
-          <div className="mt-5 divide-y divide-parchment-100/10 border border-parchment-100/10 bg-basalt-900">
+          <div className="mt-5 divide-y divide-(--p-border) border border-(--p-border) bg-(--p-panel)">
             {attention.map(({ def, item, flags }) => {
               const title = String(
                 (item.locales.en as Record<string, unknown> | undefined)?.[def.titleField] ?? "(untitled)",
@@ -131,10 +131,10 @@ export default function AdminDashboard() {
                   href={`/admin/${def.slug}/${item.id}`}
                   className="group flex items-center gap-4 px-5 py-3.5"
                 >
-                  <span className="label-caps w-32 shrink-0 text-[0.6rem] text-parchment-200/40">
+                  <span className="label-caps w-32 shrink-0 text-[0.6rem] text-(--p-text-4)">
                     {def.label.split(" /")[0]}
                   </span>
-                  <span className="min-w-0 flex-1 truncate text-sm text-parchment-100 transition-colors group-hover:text-brass-300">
+                  <span className="min-w-0 flex-1 truncate text-sm text-(--p-text) transition-colors group-hover:text-(--p-accent)">
                     {title}
                   </span>
                   <span className="flex shrink-0 gap-2">
@@ -143,8 +143,8 @@ export default function AdminDashboard() {
                         key={f}
                         className={`label-caps border px-2 py-0.5 text-[0.55rem] ${
                           f === "draft"
-                            ? "border-terracotta-500/50 text-terracotta-500"
-                            : "border-parchment-100/20 text-parchment-200/50"
+                            ? "border-(--p-alert) text-(--p-alert)"
+                            : "border-(--p-border-2) text-(--p-text-3)"
                         }`}
                       >
                         {f}
@@ -161,26 +161,26 @@ export default function AdminDashboard() {
       {/* ——— 02 · latest inquiries ——— */}
       <section className="mt-12">
         <div className="flex items-baseline gap-4">
-          <span className="label-caps text-brass-400/70">02 · Latest inquiries</span>
-          <span className="h-px flex-1 bg-parchment-100/10" aria-hidden="true" />
-          <Link href="/admin/inquiries" className="label-caps text-parchment-200/50 hover:text-brass-300">
+          <span className="label-caps text-(--p-accent-2)">02 · Latest inquiries</span>
+          <span className="h-px flex-1 bg-(--p-border)" aria-hidden="true" />
+          <Link href="/admin/inquiries" className="label-caps text-(--p-text-3) hover:text-(--p-accent)">
             All →
           </Link>
         </div>
         {inquiries.length === 0 ? (
-          <p className="mt-5 text-sm text-parchment-200/50">The inbox is quiet.</p>
+          <p className="mt-5 text-sm text-(--p-text-3)">The inbox is quiet.</p>
         ) : (
-          <div className="mt-5 grid gap-px border border-parchment-100/10 bg-parchment-100/10 md:grid-cols-3">
+          <div className="mt-5 grid gap-px border border-(--p-border) bg-(--p-border) md:grid-cols-3">
             {inquiries.slice(0, 3).map((q) => (
-              <Link key={q.id} href="/admin/inquiries" className="group bg-basalt-900 p-5 transition-colors hover:bg-basalt-800">
-                <span className="flex items-center gap-2 text-brass-400/70">
+              <Link key={q.id} href="/admin/inquiries" className="group bg-(--p-panel) p-5 transition-colors hover:bg-(--p-hover)">
+                <span className="flex items-center gap-2 text-(--p-accent-2)">
                   <IconInbox className="h-4 w-4" />
                   <span className="label-caps text-[0.55rem]">{new Date(q.createdAt).toLocaleDateString("en-GB")}</span>
                 </span>
-                <span className="mt-3 block truncate text-sm text-parchment-100 group-hover:text-brass-300">
+                <span className="mt-3 block truncate text-sm text-(--p-text) group-hover:text-(--p-accent)">
                   {q.name}
                 </span>
-                <span className="mt-1 block truncate text-xs text-parchment-200/45">
+                <span className="mt-1 block truncate text-xs text-(--p-text-4)">
                   {q.matter || "Unspecified matter"}
                 </span>
               </Link>
@@ -192,39 +192,39 @@ export default function AdminDashboard() {
       {/* ——— 03 · collections & site ——— */}
       <section className="mt-12 mb-4">
         <div className="flex items-baseline gap-4">
-          <span className="label-caps text-brass-400/70">03 · Collections</span>
-          <span className="h-px flex-1 bg-parchment-100/10" aria-hidden="true" />
+          <span className="label-caps text-(--p-accent-2)">03 · Collections</span>
+          <span className="h-px flex-1 bg-(--p-border)" aria-hidden="true" />
         </div>
-        <div className="mt-5 grid gap-px border border-parchment-100/10 bg-parchment-100/10 sm:grid-cols-2">
+        <div className="mt-5 grid gap-px border border-(--p-border) bg-(--p-border) sm:grid-cols-2">
           {all.map(({ def, items }) => {
             const Icon = icons[def.slug] ?? IconArticle;
             const d = items.filter((i) => i.status === "draft").length;
             return (
-              <Link key={def.slug} href={`/admin/${def.slug}`} className="group bg-basalt-900 p-6 transition-colors hover:bg-basalt-800">
+              <Link key={def.slug} href={`/admin/${def.slug}`} className="group bg-(--p-panel) p-6 transition-colors hover:bg-(--p-hover)">
                 <div className="flex items-baseline justify-between gap-4">
                   <span className="flex items-center gap-2.5">
-                    <Icon className="h-4 w-4 text-brass-400/70" />
-                    <span className="font-display text-xl text-parchment-100 group-hover:text-brass-300">{def.label}</span>
+                    <Icon className="h-4 w-4 text-(--p-accent-2)" />
+                    <span className="font-display text-xl text-(--p-text) group-hover:text-(--p-accent)">{def.label}</span>
                   </span>
-                  <span className="label-caps text-[0.6rem] text-parchment-200/40 tabular-nums">
+                  <span className="label-caps text-[0.6rem] text-(--p-text-4) tabular-nums">
                     {items.length}{d > 0 ? ` · ${d} draft${d > 1 ? "s" : ""}` : ""}
                   </span>
                 </div>
-                <p className="mt-2.5 text-xs leading-relaxed text-parchment-200/50">{def.description}</p>
+                <p className="mt-2.5 text-xs leading-relaxed text-(--p-text-3)">{def.description}</p>
               </Link>
             );
           })}
-          <Link href="/admin/site" className="group bg-basalt-900 p-6 transition-colors hover:bg-basalt-800 sm:col-span-2">
+          <Link href="/admin/site" className="group bg-(--p-panel) p-6 transition-colors hover:bg-(--p-hover) sm:col-span-2">
             <div className="flex items-baseline justify-between gap-4">
               <span className="flex items-center gap-2.5">
-                <IconSettings className="h-4 w-4 text-brass-400/70" />
-                <span className="font-display text-xl text-parchment-100 group-hover:text-brass-300">Site settings</span>
+                <IconSettings className="h-4 w-4 text-(--p-accent-2)" />
+                <span className="font-display text-xl text-(--p-text) group-hover:text-(--p-accent)">Site settings</span>
               </span>
-              <span className="label-caps text-[0.6rem] text-parchment-200/40">
+              <span className="label-caps text-[0.6rem] text-(--p-text-4)">
                 {site.heroImage ? "hero image set" : "no hero image"}
               </span>
             </div>
-            <p className="mt-2.5 text-xs leading-relaxed text-parchment-200/50">
+            <p className="mt-2.5 text-xs leading-relaxed text-(--p-text-3)">
               Hero image, telephone and email — the details that must never be placeholders.
             </p>
           </Link>
