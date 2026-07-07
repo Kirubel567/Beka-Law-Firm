@@ -11,9 +11,11 @@ import {
   IconExternal,
   IconInbox,
   IconMatter,
+  IconMoon,
   IconPerson,
   IconQuote,
   IconSettings,
+  IconSun,
 } from "./icons";
 
 interface Stats {
@@ -28,9 +30,43 @@ const collectionIcons: Record<string, (p: { className?: string }) => ReactNode> 
   testimonials: IconQuote,
 };
 
+function ThemeToggle() {
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  useEffect(() => {
+    if (document.documentElement.getAttribute("data-theme") === "light") {
+      setTheme("light");
+    }
+  }, []);
+
+  const flip = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.setAttribute("data-theme", next);
+    try {
+      localStorage.setItem("beka-portal-theme", next);
+    } catch {
+      /* private browsing — the choice just won't persist */
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={flip}
+      aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+      title={theme === "dark" ? "Light mode" : "Dark mode"}
+      className="flex h-8 w-8 items-center justify-center border border-(--p-border) text-(--p-text-3) transition-colors hover:border-(--p-accent-2) hover:text-(--p-accent)"
+    >
+      {theme === "dark" ? <IconSun /> : <IconMoon />}
+    </button>
+  );
+}
+
 /**
  * The portal shell — grouped sidebar with live counts and a jump-to filter,
- * a slim top bar, and the working canvas. The login screen renders bare.
+ * a slim top bar with the theme toggle, and the working canvas.
+ * The login screen renders bare.
  */
 export default function PortalChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -118,10 +154,10 @@ export default function PortalChrome({ children }: { children: ReactNode }) {
   const sidebar = (
     <div className="flex h-full flex-col">
       <Link href="/admin" className="flex items-center gap-3 px-5 pt-6 pb-5">
-        <SealMark className="h-9 w-9 shrink-0 text-brass-400" />
+        <SealMark className="h-9 w-9 shrink-0 text-(--p-accent)" />
         <span className="flex flex-col leading-none">
-          <span className="font-display text-lg font-medium tracking-[0.16em] text-parchment-50">BEKA</span>
-          <span className="label-caps mt-1 text-[0.55rem] text-brass-400/80">Staff Portal</span>
+          <span className="font-display text-lg font-medium tracking-[0.16em] text-(--p-text)">BEKA</span>
+          <span className="label-caps mt-1 text-[0.55rem] text-(--p-accent-2)">Staff Portal</span>
         </span>
       </Link>
 
@@ -131,14 +167,14 @@ export default function PortalChrome({ children }: { children: ReactNode }) {
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           placeholder="Jump to…"
-          className="w-full border border-parchment-100/10 bg-basalt-950 px-3 py-2 text-xs text-parchment-100 placeholder:text-parchment-200/30 focus:border-brass-400/60 focus:outline-none"
+          className="w-full border border-(--p-border) bg-(--p-input) px-3 py-2 text-xs text-(--p-text) placeholder:text-(--p-text-4) focus:border-(--p-accent-2) focus:outline-none"
         />
       </div>
 
       <nav className="no-scrollbar flex-1 space-y-6 overflow-y-auto px-3 pb-6" aria-label="Portal">
         {filtered.map((g) => (
           <div key={g.label}>
-            <p className="label-caps px-2 pb-2 text-[0.6rem] text-parchment-200/35">{g.label}</p>
+            <p className="label-caps px-2 pb-2 text-[0.6rem] text-(--p-text-4)">{g.label}</p>
             <ul className="space-y-0.5">
               {g.items.map((item) => {
                 const Icon = item.icon;
@@ -150,17 +186,17 @@ export default function PortalChrome({ children }: { children: ReactNode }) {
                       target={item.external ? "_blank" : undefined}
                       className={`group flex items-center gap-3 px-2 py-2 text-[0.8rem] transition-colors ${
                         active
-                          ? "border-l-2 border-brass-400 bg-basalt-800 pl-[calc(0.5rem-2px)] text-brass-300"
-                          : "text-parchment-200/70 hover:bg-basalt-800/60 hover:text-parchment-50"
+                          ? "border-l-2 border-(--p-accent) bg-(--p-hover) pl-[calc(0.5rem-2px)] text-(--p-accent)"
+                          : "text-(--p-text-2) hover:bg-(--p-hover) hover:text-(--p-text)"
                       }`}
                     >
-                      <Icon className={`h-4 w-4 shrink-0 ${active ? "text-brass-400" : "text-parchment-200/40 group-hover:text-brass-400/70"}`} />
+                      <Icon className={`h-4 w-4 shrink-0 ${active ? "text-(--p-accent)" : "text-(--p-text-4) group-hover:text-(--p-accent-2)"}`} />
                       <span className="flex-1 truncate">{item.label}</span>
                       {item.drafts > 0 && (
-                        <span className="label-caps text-[0.55rem] text-terracotta-500">{item.drafts} draft{item.drafts > 1 ? "s" : ""}</span>
+                        <span className="label-caps text-[0.55rem] text-(--p-alert)">{item.drafts} draft{item.drafts > 1 ? "s" : ""}</span>
                       )}
                       {item.count !== null && (
-                        <span className="label-caps text-[0.6rem] text-parchment-200/35 tabular-nums">{item.count}</span>
+                        <span className="label-caps text-[0.6rem] text-(--p-text-4) tabular-nums">{item.count}</span>
                       )}
                     </Link>
                   </li>
@@ -171,14 +207,14 @@ export default function PortalChrome({ children }: { children: ReactNode }) {
         ))}
       </nav>
 
-      <div className="border-t border-parchment-100/10 px-5 py-4">
+      <div className="border-t border-(--p-border) px-5 py-4">
         <button
           type="button"
           onClick={async () => {
             await fetch("/api/admin/logout", { method: "POST" });
             window.location.assign("/admin/login");
           }}
-          className="label-caps text-parchment-200/50 transition-colors hover:text-brass-300"
+          className="label-caps text-(--p-text-3) transition-colors hover:text-(--p-accent)"
         >
           Sign out
         </button>
@@ -189,7 +225,7 @@ export default function PortalChrome({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-svh">
       {/* sidebar — fixed on desktop, sliding sheet on small screens */}
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 border-r border-parchment-100/10 bg-basalt-900 lg:block">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 border-r border-(--p-border) bg-(--p-panel) lg:block">
         {sidebar}
       </aside>
       {mobileOpen && (
@@ -198,25 +234,25 @@ export default function PortalChrome({ children }: { children: ReactNode }) {
             type="button"
             aria-label="Close menu"
             onClick={() => setMobileOpen(false)}
-            className="absolute inset-0 bg-basalt-950/70"
+            className="absolute inset-0 bg-(--p-scrim)"
           />
-          <aside className="absolute inset-y-0 left-0 w-64 border-r border-parchment-100/10 bg-basalt-900">
+          <aside className="absolute inset-y-0 left-0 w-64 border-r border-(--p-border) bg-(--p-panel)">
             {sidebar}
           </aside>
         </div>
       )}
 
       <div className="flex min-w-0 flex-1 flex-col lg:pl-64">
-        <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-parchment-100/10 bg-basalt-950/95 px-5 backdrop-blur-sm">
+        <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-(--p-border) bg-(--p-topbar) px-5 backdrop-blur-sm">
           <div className="flex items-center gap-4">
             <button
               type="button"
               onClick={() => setMobileOpen(true)}
-              className="label-caps text-parchment-200/70 lg:hidden"
+              className="label-caps text-(--p-text-2) lg:hidden"
             >
               Menu
             </button>
-            <h1 className="label-caps text-parchment-200/70">{pageTitle}</h1>
+            <h1 className="label-caps text-(--p-text-2)">{pageTitle}</h1>
           </div>
           <div className="flex items-center gap-4">
             {(["en", "am", "om"] as const).map((l) => (
@@ -224,11 +260,12 @@ export default function PortalChrome({ children }: { children: ReactNode }) {
                 key={l}
                 href={`/${l}`}
                 target="_blank"
-                className="label-caps text-[0.6rem] text-parchment-200/40 transition-colors hover:text-brass-300"
+                className="label-caps text-[0.6rem] text-(--p-text-4) transition-colors hover:text-(--p-accent)"
               >
                 {l === "om" ? "OR" : l.toUpperCase()} ↗
               </Link>
             ))}
+            <ThemeToggle />
           </div>
         </header>
         <main className="flex-1 px-5 py-8 md:px-8">{children}</main>
