@@ -54,6 +54,7 @@ export default function Header({ locale, dict }: { locale: Locale; dict: Dict })
   const isActive = (href: string) => pathname.startsWith(href);
 
   return (
+    <>
     <header
       className={`fixed inset-x-0 top-0 z-50 text-parchment-100 transition-all duration-700 ${
         scrolled || open
@@ -105,7 +106,10 @@ export default function Header({ locale, dict }: { locale: Locale; dict: Dict })
           </span>
         </button>
       </div>
+    </header>
 
+      {/* the mobile menu lives outside the header: its backdrop-blur makes the
+          header a containing block for fixed children, collapsing them to 0px */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -113,7 +117,7 @@ export default function Header({ locale, dict }: { locale: Locale; dict: Dict })
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: settle }}
-            className="basalt-relief fixed inset-x-0 top-20 bottom-0 z-40 overflow-y-auto lg:hidden"
+            className="basalt-relief fixed inset-x-0 top-20 bottom-0 z-40 overflow-y-auto text-parchment-100 lg:hidden"
           >
             <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-5 py-10" aria-label="Mobile">
               {[...links, ...secondary].map((l, i) => (
@@ -140,7 +144,7 @@ export default function Header({ locale, dict }: { locale: Locale; dict: Dict })
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }
 
