@@ -135,7 +135,7 @@ export default function PortalChrome({ children }: { children: ReactNode }) {
         />
       </div>
 
-      <nav className="flex-1 space-y-6 overflow-y-auto px-3 pb-6" aria-label="Portal">
+      <nav className="no-scrollbar flex-1 space-y-6 overflow-y-auto px-3 pb-6" aria-label="Portal">
         {filtered.map((g) => (
           <div key={g.label}>
             <p className="label-caps px-2 pb-2 text-[0.6rem] text-parchment-200/35">{g.label}</p>

@@ -118,6 +118,15 @@
   transform: scaleX(1);
 }
 
+/* Scrollable areas that shouldn't show a scrollbar (portal sidebar) */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Small caps label */
 .label-caps {
   font-family: var(--font-body);
