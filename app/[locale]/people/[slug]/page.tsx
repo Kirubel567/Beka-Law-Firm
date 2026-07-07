@@ -62,6 +62,19 @@ export default async function PersonPage({
           </div>
 
           <aside>
+            {person.image && (
+              <Reveal>
+                <div className="relative mb-8 overflow-hidden border border-basalt-600/20">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={person.image}
+                    alt={person.name}
+                    className="aspect-[4/5] w-full object-cover grayscale-[0.85]"
+                  />
+                  <div className="absolute inset-0 bg-brass-500/15 mix-blend-multiply" aria-hidden="true" />
+                </div>
+              </Reveal>
+            )}
             <Reveal delay={0.1}>
               <div className="border border-basalt-600/15 bg-parchment-50 p-8">
                 <h2 className="label-caps text-terracotta-600">{p.credentialsLabel}</h2>

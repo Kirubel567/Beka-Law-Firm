@@ -41,7 +41,19 @@ export default async function PeoplePage({
                 href={`/${locale}/people/${partner.slug}`}
                 className="group grid gap-8 border border-basalt-600/15 bg-parchment-50 p-8 transition-colors duration-700 hover:border-brass-500/50 md:grid-cols-[auto_1fr_auto] md:items-center md:p-12"
               >
-                <SealMark className="hidden h-20 w-20 text-brass-500/40 transition-colors duration-700 group-hover:text-brass-500/80 md:block" />
+                {partner.image ? (
+                  <span className="relative block h-44 w-36 shrink-0 overflow-hidden border border-basalt-600/20">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={partner.image}
+                      alt={partner.name}
+                      className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-[0.4]"
+                    />
+                    <span className="absolute inset-0 bg-brass-500/15 mix-blend-multiply" aria-hidden="true" />
+                  </span>
+                ) : (
+                  <SealMark className="hidden h-20 w-20 text-brass-500/40 transition-colors duration-700 group-hover:text-brass-500/80 md:block" />
+                )}
                 <span>
                   <span className="block font-display text-3xl font-medium text-basalt-900 transition-colors duration-500 group-hover:text-brass-600 md:text-4xl">
                     {partner.name}
