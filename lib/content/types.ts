@@ -16,6 +16,8 @@ export interface Person {
   languages: string;
   bio: string[];
   credentials: string[];
+  /** portrait uploaded via the staff portal; null renders the seal placeholder */
+  image?: string | null;
 }
 
 export interface PracticeArea {

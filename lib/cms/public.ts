@@ -57,13 +57,18 @@ export function getPeople(locale: Locale): Person[] {
   return published("people").map((i) => ({
     ...localize<Omit<Person, "slug">>(i, locale),
     slug: i.slug ?? i.id,
+    image: i.image ?? null,
   }));
 }
 
 export function getPerson(locale: Locale, slug: string): Person | undefined {
   const item = published("people").find((i) => i.slug === slug);
   if (!item) return undefined;
-  return { ...localize<Omit<Person, "slug">>(item, locale), slug };
+  return {
+    ...localize<Omit<Person, "slug">>(item, locale),
+    slug,
+    image: item.image ?? null,
+  };
 }
 
 export function getMatters(locale: Locale): Matter[] {
