@@ -22,10 +22,19 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+// applies the saved theme before first paint so the portal never flashes
+const themeBoot = `try{var t=localStorage.getItem("beka-portal-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t)}}catch(e){}`;
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${outfit.variable}`}>
-      <body className="font-body min-h-svh bg-basalt-950 text-parchment-100 antialiased">
+    <html
+      lang="en"
+      data-theme="dark"
+      className={`${cormorant.variable} ${outfit.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="font-body min-h-svh bg-(--p-bg) text-(--p-text) antialiased">
+        <script dangerouslySetInnerHTML={{ __html: themeBoot }} />
         <PortalChrome>{children}</PortalChrome>
       </body>
     </html>
