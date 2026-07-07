@@ -85,15 +85,3 @@ Page furniture (navigation, section headings, form labels) lives in
 `lib/content/types.ts`. Collection content (articles, people, matters,
 testimonials) is managed in the portal.
 
-## Before launch — items needing firm sign-off
-
-- **Dates and credentials**: founding year (1990), timeline dates, and partner
-  bios are drafted from public sources and must be verified by the partners.
-- **Contact details**: the phone number is a placeholder (`+251 11 XXX XXXX`);
-  the street address is omitted pending confirmation.
-- **Translations**: Amharic and Afaan Oromoo copy should pass professional
-  legal-terminology review (the proposal assigns this to the client).
-- **Testimonials**: the three seeded quotes are illustrative placeholders —
-  replace with real consented quotes via the portal.
-- **Portal credentials**: change `ADMIN_PASSWORD` and `AUTH_SECRET` in
-  `.env.local` before deployment, and serve over HTTPS.
