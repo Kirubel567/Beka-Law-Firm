@@ -23,7 +23,8 @@ export default function LoginForm() {
       // full navigation so the fresh session cookie is used everywhere
       window.location.assign("/admin");
     } else {
-      setError("Invalid credentials.");
+      const data = (await res.json().catch(() => null)) as { error?: string } | null;
+      setError(data?.error ?? "Invalid credentials.");
       setBusy(false);
     }
   };

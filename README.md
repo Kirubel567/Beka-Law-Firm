@@ -82,9 +82,24 @@ Back up the database (online-safe, keeps the newest 14):
 node scripts/backupdb.mjs   # writes backups/beka-<timestamp>.db
 ```
 
-Auth is a signed HttpOnly session cookie (HMAC-SHA256, `AUTH_SECRET`) enforced
-by `middleware.ts` over `/admin` and `/api/admin`. Single shared staff login for
-Phase 1 — per-user accounts and roles arrive with the Phase 2 portal work.
+### Accounts, roles and sessions
+
+Each staff member has their own account with a role: **editor** (manages
+content) or **admin** (content + staff accounts + activity log). Admins manage
+accounts at `/admin/users`; every portal action is recorded in the activity
+log at `/admin/audit`.
+
+- Passwords are hashed with scrypt (`node:crypto`, no dependencies).
+- Sessions live in the database and are revocable: resetting a password or
+  disabling an account signs that person out everywhere at once.
+- The cookie is a signed HttpOnly token (HMAC-SHA256, `AUTH_SECRET`) checked
+  Edge-side by `middleware.ts` over `/admin` and `/api/admin`; route handlers
+  then resolve it against the sessions table.
+- Sign-in is rate-limited: five failures lock the username for 15 minutes.
+- The first admin account is bootstrapped from `ADMIN_USERNAME` /
+  `ADMIN_PASSWORD` in `.env.local` when the users table is empty; after that,
+  accounts are managed entirely in the portal.
+- The last active administrator can never be demoted, disabled or deleted.
 
 ## Editing UI text
 

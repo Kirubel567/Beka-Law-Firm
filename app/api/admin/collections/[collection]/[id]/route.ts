@@ -2,10 +2,13 @@ import { NextResponse } from "next/server";
 import { getCollection } from "@/lib/cms/schema";
 import { deleteItem, getItem, upsertItem } from "@/lib/cms/store";
 import type { CmsItem } from "@/lib/cms/types";
+import { audit, currentUser } from "@/lib/users";
 
 type Params = { params: Promise<{ collection: string; id: string }> };
 
 export async function PUT(req: Request, { params }: Params) {
+  const me = await currentUser();
+  if (!me) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const { collection, id } = await params;
   if (!getCollection(collection)) {
     return NextResponse.json({ error: "Unknown collection" }, { status: 404 });
@@ -30,15 +33,20 @@ export async function PUT(req: Request, { params }: Params) {
           : null,
     locales: body.locales ?? existing.locales,
   };
-  return NextResponse.json(upsertItem(collection, item));
+  const stored = upsertItem(collection, item);
+  audit(me.username, "item.update", { collection, itemId: id });
+  return NextResponse.json(stored);
 }
 
 export async function DELETE(_req: Request, { params }: Params) {
+  const me = await currentUser();
+  if (!me) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const { collection, id } = await params;
   if (!getCollection(collection)) {
     return NextResponse.json({ error: "Unknown collection" }, { status: 404 });
   }
   const ok = deleteItem(collection, id);
+  if (ok) audit(me.username, "item.delete", { collection, itemId: id });
   return ok
     ? NextResponse.json({ ok: true })
     : NextResponse.json({ error: "Not found" }, { status: 404 });

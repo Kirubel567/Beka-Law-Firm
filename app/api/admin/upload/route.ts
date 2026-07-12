@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { NextResponse } from "next/server";
+import { audit, currentUser } from "@/lib/users";
 
 const ALLOWED = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
 const MAX_BYTES = 8 * 1024 * 1024;
@@ -11,6 +12,8 @@ const MAX_BYTES = 8 * 1024 * 1024;
  * time, so anything uploaded after `next build` would otherwise 404.
  */
 export async function POST(req: Request) {
+  const me = await currentUser();
+  if (!me) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const form = await req.formData();
   const file = form.get("file");
   if (!(file instanceof File)) {
@@ -36,5 +39,6 @@ export async function POST(req: Request) {
   fs.mkdirSync(dir, { recursive: true });
   const buffer = Buffer.from(await file.arrayBuffer());
   fs.writeFileSync(path.join(dir, name), buffer);
+  audit(me.username, "upload", { detail: name });
   return NextResponse.json({ url: `/uploads/${name}` });
 }

@@ -126,3 +126,23 @@ export function IconMoon({ className = "h-4 w-4" }: P) {
     </svg>
   );
 }
+
+export function IconUsers({ className = "h-4 w-4" }: P) {
+  return (
+    <svg viewBox="0 0 20 20" className={className} {...base} aria-hidden="true">
+      <circle cx="7" cy="7" r="2.5" />
+      <path d="M2.5 16c.5-3 2.5-4.5 4.5-4.5S11 13 11.5 16" />
+      <circle cx="13.5" cy="7.5" r="2" />
+      <path d="M13 11.7c2 .1 3.9 1.4 4.4 4.3" />
+    </svg>
+  );
+}
+
+export function IconHistory({ className = "h-4 w-4" }: P) {
+  return (
+    <svg viewBox="0 0 20 20" className={className} {...base} aria-hidden="true">
+      <circle cx="10" cy="10" r="6.5" />
+      <path d="M10 6.5V10l2.5 2" />
+    </svg>
+  );
+}

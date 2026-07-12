@@ -10,6 +10,7 @@ import {
   IconClose,
   IconDashboard,
   IconExternal,
+  IconHistory,
   IconInbox,
   IconMatter,
   IconMenu,
@@ -18,11 +19,18 @@ import {
   IconQuote,
   IconSettings,
   IconSun,
+  IconUsers,
 } from "./icons";
 
 interface Stats {
   collections: Record<string, { total: number; drafts: number }>;
   inquiries: number;
+}
+
+interface Me {
+  username: string;
+  displayName: string;
+  role: "admin" | "editor";
 }
 
 const collectionIcons: Record<string, (p: { className?: string }) => ReactNode> = {
@@ -73,6 +81,7 @@ function ThemeToggle() {
 export default function PortalChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [stats, setStats] = useState<Stats | null>(null);
+  const [me, setMe] = useState<Me | null>(null);
   const [filter, setFilter] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -92,6 +101,20 @@ export default function PortalChrome({ children }: { children: ReactNode }) {
       cancelled = true;
     };
   }, [pathname, isLogin]);
+
+  useEffect(() => {
+    if (isLogin) return;
+    let cancelled = false;
+    fetch("/api/admin/me")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (!cancelled && d) setMe(d as Me);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [isLogin]);
 
   const groups = useMemo(() => {
     return [
@@ -125,8 +148,19 @@ export default function PortalChrome({ children }: { children: ReactNode }) {
           { href: "/en", label: "View public site", icon: IconExternal, count: null, drafts: 0, external: true },
         ],
       },
+      ...(me?.role === "admin"
+        ? [
+            {
+              label: "Administration",
+              items: [
+                { href: "/admin/users", label: "Staff accounts", icon: IconUsers, count: null as number | null, drafts: 0, external: false },
+                { href: "/admin/audit", label: "Activity log", icon: IconHistory, count: null as number | null, drafts: 0, external: false },
+              ],
+            },
+          ]
+        : []),
     ];
-  }, [stats]);
+  }, [stats, me]);
 
   const filtered = useMemo(() => {
     const q = filter.trim().toLowerCase();
@@ -140,6 +174,8 @@ export default function PortalChrome({ children }: { children: ReactNode }) {
     if (pathname === "/admin") return "Dashboard";
     if (pathname === "/admin/site") return "Site settings";
     if (pathname === "/admin/inquiries") return "Inquiries";
+    if (pathname === "/admin/users") return "Staff accounts";
+    if (pathname === "/admin/audit") return "Activity log";
     const seg = pathname.split("/")[2];
     const col = collections.find((c) => c.slug === seg);
     if (col) return pathname.split("/").length > 3 ? `${col.label} · Editor` : col.label;
@@ -209,14 +245,20 @@ export default function PortalChrome({ children }: { children: ReactNode }) {
         ))}
       </nav>
 
-      <div className="border-t border-(--p-border) px-5 py-4">
+      <div className="flex items-center justify-between gap-3 border-t border-(--p-border) px-5 py-4">
+        {me && (
+          <span className="min-w-0 truncate text-xs text-(--p-text-3)" title={me.username}>
+            {me.displayName || me.username}
+            <span className="label-caps ml-2 text-[0.55rem] text-(--p-text-4)">{me.role}</span>
+          </span>
+        )}
         <button
           type="button"
           onClick={async () => {
             await fetch("/api/admin/logout", { method: "POST" });
             window.location.assign("/admin/login");
           }}
-          className="label-caps text-(--p-text-3) transition-colors hover:text-(--p-accent)"
+          className="label-caps shrink-0 text-(--p-text-3) transition-colors hover:text-(--p-accent)"
         >
           Sign out
         </button>
