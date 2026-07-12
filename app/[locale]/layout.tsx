@@ -5,9 +5,9 @@ import {
   Noto_Serif_Ethiopic,
   Noto_Sans_Ethiopic,
 } from "next/font/google";
+import { notFound } from "next/navigation";
 import "../globals.css";
-import { getDict, locales } from "@/lib/i18n";
-import type { Locale } from "@/lib/content/types";
+import { getDict, isLocale, locales } from "@/lib/i18n";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -77,19 +77,19 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  if (!isLocale(locale)) notFound();
   const dict = getDict(locale);
-  const loc = (locales as string[]).includes(locale) ? (locale as Locale) : "en";
 
   return (
     <html
-      lang={loc}
+      lang={locale}
       suppressHydrationWarning
       className={`${cormorant.variable} ${outfit.variable} ${ethioSerif.variable} ${ethioSans.variable}`}
     >
       <body className="font-body antialiased">
-        <Header locale={loc} dict={dict} />
+        <Header locale={locale} dict={dict} />
         <main>{children}</main>
-        <Footer locale={loc} dict={dict} />
+        <Footer locale={locale} dict={dict} />
       </body>
     </html>
   );

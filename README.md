@@ -5,6 +5,10 @@ Phase 1 of the ZAKE Tech Group proposal. Design concept: **"The Unbroken Line"**
 a chaptered chronicle rather than a brochure, with a brass-thread motif, a
 scroll-drawn timeline, and a seal-confirmation inquiry flow.
 
+**New to this codebase?** Read [docs/PROJECT_OVERVIEW.md](docs/PROJECT_OVERVIEW.md)
+first — it explains the architecture, the database, auth/roles, and what's
+left to build (the Phase 2 AI assistant, deployment).
+
 ## Stack
 
 - **Next.js 15** (App Router, fully static — every page prerendered per locale)
