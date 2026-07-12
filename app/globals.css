@@ -1,7 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  /* Material palette — basalt, parchment, brass, terracotta */
+  /* Material palette — basalt, parchment, crimson (the firm's mark), terracotta.
+     The accent scale is still named `brass-*` so the ~15 call sites don't churn;
+     the values are the firm's crimson (from the BEKA logo, #9e2c34). If this
+     retheme is kept, a follow-up can rename brass-* -> crimson-* for clarity. */
   --color-basalt-950: #12100d;
   --color-basalt-900: #17140f;
   --color-basalt-800: #211d16;
@@ -13,10 +16,10 @@
   --color-parchment-200: #eae2d0;
   --color-parchment-300: #d9cdb4;
 
-  --color-brass-300: #d6b878;
-  --color-brass-400: #c4a25c;
-  --color-brass-500: #a8823e;
-  --color-brass-600: #8c6a30;
+  --color-brass-300: #d35f68;
+  --color-brass-400: #c73842;
+  --color-brass-500: #9e2c34;
+  --color-brass-600: #80242a;
 
   --color-terracotta-500: #a65e3f;
   --color-terracotta-600: #8f4d32;
@@ -86,7 +89,7 @@
 .basalt-relief {
   background-color: var(--color-basalt-900);
   background-image:
-    radial-gradient(1200px 600px at 70% -10%, rgba(214, 184, 120, 0.06), transparent 60%),
+    radial-gradient(1200px 600px at 70% -10%, rgba(211, 95, 104, 0.06), transparent 60%),
     radial-gradient(900px 500px at 10% 110%, rgba(166, 94, 63, 0.05), transparent 60%);
 }
 
@@ -134,8 +137,8 @@ html[data-theme="dark"] {
   --p-text-2: rgba(234, 226, 208, 0.78);
   --p-text-3: rgba(234, 226, 208, 0.55);
   --p-text-4: rgba(234, 226, 208, 0.36);
-  --p-accent: #d6b878;
-  --p-accent-2: rgba(196, 162, 92, 0.8);
+  --p-accent: #d35f68;
+  --p-accent-2: rgba(199, 56, 66, 0.82);
   --p-alert: #a65e3f;
   color-scheme: dark;
 }
@@ -153,8 +156,8 @@ html[data-theme="light"] {
   --p-text-2: rgba(46, 42, 34, 0.8);
   --p-text-3: rgba(46, 42, 34, 0.6);
   --p-text-4: rgba(46, 42, 34, 0.42);
-  --p-accent: #8c6a30;
-  --p-accent-2: #a8823e;
+  --p-accent: #80242a;
+  --p-accent-2: #9e2c34;
   --p-alert: #8f4d32;
   color-scheme: light;
 }
