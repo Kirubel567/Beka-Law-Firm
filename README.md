@@ -68,11 +68,19 @@ What staff can manage, without a developer:
   overlay), telephone and email
 - **Inquiries** — consultation requests from the contact form land here
 
-Content lives as JSON in `data/` (auto-seeded from the shipped dictionaries on
-first run) and uploads in `public/uploads/` — both gitignored. The store layer
-(`lib/cms/store.ts`) is shaped like a database DAO, so moving to
-Postgres/SQLite later touches one file. Note for hosting: the file store needs
-a persistent disk (a VPS or container volume), not a serverless filesystem.
+Content lives in SQLite at `data/beka.db` (WAL mode; auto-seeded from the
+shipped dictionaries on first run — a pre-database install's `data/*.json`
+files are imported once and renamed `*.imported`). Uploads land in
+`data/uploads/`. Both are gitignored. The store layer (`lib/cms/store.ts`)
+keeps a DAO shape, so a later move to Postgres touches one file. Note for
+hosting: the database needs a persistent disk (a VPS or container volume),
+not a serverless filesystem.
+
+Back up the database (online-safe, keeps the newest 14):
+
+```bash
+node scripts/backupdb.mjs   # writes backups/beka-<timestamp>.db
+```
 
 Auth is a signed HttpOnly session cookie (HMAC-SHA256, `AUTH_SECRET`) enforced
 by `middleware.ts` over `/admin` and `/api/admin`. Single shared staff login for

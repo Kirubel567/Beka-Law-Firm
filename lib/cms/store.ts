@@ -4,14 +4,14 @@ import type { Dict, Locale } from "@/lib/content/types";
 import { en } from "@/lib/content/en";
 import { am } from "@/lib/content/am";
 import { om } from "@/lib/content/om";
+import { getDb } from "@/lib/db";
 import type { CmsItem, SiteSettings } from "./types";
 
 /**
- * File-backed content store for Phase 1. Collections live as JSON under /data,
- * auto-seeded from the shipped trilingual dictionaries on first access, so the
- * portal opens pre-populated and the public site never renders empty.
- * The read/write surface below is deliberately the shape of a database DAO —
- * swapping in Postgres/SQLite later touches only this file.
+ * SQLite-backed content store. Collections are seeded from the shipped
+ * trilingual dictionaries on first access (or imported from the legacy
+ * data/*.json files if this install predates the database), so the portal
+ * opens pre-populated and the public site never renders empty.
  */
 
 const DATA_DIR = path.join(process.cwd(), "data");
@@ -102,60 +102,140 @@ function seedItems(collection: string): CmsItem[] {
   }
 }
 
-function filePath(collection: string): string {
-  return path.join(DATA_DIR, `${collection}.json`);
+/* ——— row mapping ——— */
+
+interface ItemRow {
+  id: string;
+  status: string;
+  ord: number;
+  slug: string | null;
+  date: string | null;
+  image: string | null;
+  created_at: string;
+  updated_at: string;
+  locales: string;
 }
 
-function ensureDir(): void {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
+function rowToItem(r: ItemRow): CmsItem {
+  return {
+    id: r.id,
+    status: r.status === "published" ? "published" : "draft",
+    order: r.ord,
+    slug: r.slug ?? undefined,
+    date: r.date ?? undefined,
+    image: r.image,
+    createdAt: r.created_at,
+    updatedAt: r.updated_at,
+    locales: JSON.parse(r.locales) as CmsItem["locales"],
+  };
 }
+
+function insertItem(collection: string, item: CmsItem): void {
+  getDb()
+    .prepare(
+      `INSERT OR REPLACE INTO items
+         (collection, id, status, ord, slug, date, image, created_at, updated_at, locales)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    )
+    .run(
+      collection,
+      item.id,
+      item.status,
+      item.order,
+      item.slug ?? null,
+      item.date ?? null,
+      item.image ?? null,
+      item.createdAt,
+      item.updatedAt,
+      JSON.stringify(item.locales ?? {}),
+    );
+}
+
+/* ——— one-time seed / legacy-JSON import per collection ——— */
+
+function legacyFile(name: string): string {
+  return path.join(DATA_DIR, `${name}.json`);
+}
+
+function readLegacy<T>(name: string): T[] | null {
+  const file = legacyFile(name);
+  if (!fs.existsSync(file)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(file, "utf8")) as T[];
+  } catch {
+    return null;
+  }
+}
+
+/** After a successful import the JSON file is renamed, so it can never be
+ * imported twice and the old content remains on disk as a safety net. */
+function retireLegacy(name: string): void {
+  const file = legacyFile(name);
+  try {
+    if (fs.existsSync(file)) fs.renameSync(file, `${file}.imported`);
+  } catch {
+    // non-fatal: worst case the file lingers, but row counts guard re-import
+  }
+}
+
+const ensured = new Set<string>();
+
+function ensureCollection(collection: string): void {
+  if (ensured.has(collection)) return;
+  ensured.add(collection);
+  const db = getDb();
+  const count = (
+    db.prepare("SELECT COUNT(*) AS c FROM items WHERE collection = ?").get(collection) as {
+      c: number;
+    }
+  ).c;
+  if (count > 0) return;
+
+  const legacy = readLegacy<CmsItem>(collection);
+  const items = legacy && legacy.length > 0 ? legacy : seedItems(collection);
+  const insertAll = db.transaction((rows: CmsItem[]) => {
+    for (const item of rows) insertItem(collection, item);
+  });
+  insertAll(items);
+  if (legacy) retireLegacy(collection);
+}
+
+/* ——— public store API (signatures unchanged) ——— */
 
 export function listItems(collection: string): CmsItem[] {
-  ensureDir();
-  const file = filePath(collection);
-  if (!fs.existsSync(file)) {
-    const seed = seedItems(collection);
-    fs.writeFileSync(file, JSON.stringify(seed, null, 2), "utf8");
-    return seed;
-  }
-  try {
-    const items = JSON.parse(fs.readFileSync(file, "utf8")) as CmsItem[];
-    return items.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
-  } catch {
-    return [];
-  }
+  ensureCollection(collection);
+  const rows = getDb()
+    .prepare("SELECT * FROM items WHERE collection = ? ORDER BY ord ASC")
+    .all(collection) as ItemRow[];
+  return rows.map(rowToItem);
 }
 
 export function getItem(collection: string, id: string): CmsItem | undefined {
-  return listItems(collection).find((i) => i.id === id);
-}
-
-function writeItems(collection: string, items: CmsItem[]): void {
-  ensureDir();
-  fs.writeFileSync(filePath(collection), JSON.stringify(items, null, 2), "utf8");
+  ensureCollection(collection);
+  const row = getDb()
+    .prepare("SELECT * FROM items WHERE collection = ? AND id = ?")
+    .get(collection, id) as ItemRow | undefined;
+  return row ? rowToItem(row) : undefined;
 }
 
 export function upsertItem(collection: string, item: CmsItem): CmsItem {
-  const items = listItems(collection);
-  const idx = items.findIndex((i) => i.id === item.id);
-  const stored: CmsItem = { ...item, updatedAt: now() };
-  if (idx === -1) {
-    stored.createdAt = now();
-    items.push(stored);
-  } else {
-    stored.createdAt = items[idx].createdAt;
-    items[idx] = stored;
-  }
-  writeItems(collection, items);
+  ensureCollection(collection);
+  const existing = getItem(collection, item.id);
+  const stored: CmsItem = {
+    ...item,
+    createdAt: existing ? existing.createdAt : now(),
+    updatedAt: now(),
+  };
+  insertItem(collection, stored);
   return stored;
 }
 
 export function deleteItem(collection: string, id: string): boolean {
-  const items = listItems(collection);
-  const next = items.filter((i) => i.id !== id);
-  if (next.length === items.length) return false;
-  writeItems(collection, next);
-  return true;
+  ensureCollection(collection);
+  const res = getDb()
+    .prepare("DELETE FROM items WHERE collection = ? AND id = ?")
+    .run(collection, id);
+  return res.changes > 0;
 }
 
 /* ——— inquiries from the public contact form ——— */
@@ -171,50 +251,140 @@ export interface Inquiry {
   message: string;
 }
 
-const INQUIRIES_FILE = path.join(DATA_DIR, "inquiries.json");
+interface InquiryRow {
+  id: string;
+  created_at: string;
+  name: string;
+  organization: string;
+  email: string;
+  language: string;
+  matter: string;
+  message: string;
+}
+
+function rowToInquiry(r: InquiryRow): Inquiry {
+  return {
+    id: r.id,
+    createdAt: r.created_at,
+    name: r.name,
+    organization: r.organization,
+    email: r.email,
+    language: r.language,
+    matter: r.matter,
+    message: r.message,
+  };
+}
+
+let inquiriesEnsured = false;
+
+function ensureInquiries(): void {
+  if (inquiriesEnsured) return;
+  inquiriesEnsured = true;
+  const db = getDb();
+  const count = (db.prepare("SELECT COUNT(*) AS c FROM inquiries").get() as { c: number }).c;
+  if (count > 0) return;
+  const legacy = readLegacy<Inquiry>("inquiries");
+  if (!legacy || legacy.length === 0) return;
+  const insert = db.prepare(
+    `INSERT OR REPLACE INTO inquiries
+       (id, created_at, name, organization, email, language, matter, message)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+  );
+  const insertAll = db.transaction((rows: Inquiry[]) => {
+    for (const q of rows) {
+      insert.run(
+        q.id,
+        q.createdAt,
+        q.name,
+        q.organization ?? "",
+        q.email,
+        q.language ?? "",
+        q.matter ?? "",
+        q.message,
+      );
+    }
+  });
+  insertAll(legacy);
+  retireLegacy("inquiries");
+}
 
 export function listInquiries(): Inquiry[] {
-  ensureDir();
-  if (!fs.existsSync(INQUIRIES_FILE)) return [];
-  try {
-    const items = JSON.parse(fs.readFileSync(INQUIRIES_FILE, "utf8")) as Inquiry[];
-    return items.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
-  } catch {
-    return [];
-  }
+  ensureInquiries();
+  const rows = getDb()
+    .prepare("SELECT * FROM inquiries ORDER BY created_at DESC")
+    .all() as InquiryRow[];
+  return rows.map(rowToInquiry);
 }
 
 export function addInquiry(inquiry: Omit<Inquiry, "id" | "createdAt">): Inquiry {
-  const items = listInquiries();
+  ensureInquiries();
   const stored: Inquiry = { ...inquiry, id: crypto.randomUUID(), createdAt: now() };
-  items.unshift(stored);
-  fs.writeFileSync(INQUIRIES_FILE, JSON.stringify(items, null, 2), "utf8");
+  getDb()
+    .prepare(
+      `INSERT INTO inquiries
+         (id, created_at, name, organization, email, language, matter, message)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+    )
+    .run(
+      stored.id,
+      stored.createdAt,
+      stored.name,
+      stored.organization,
+      stored.email,
+      stored.language,
+      stored.matter,
+      stored.message,
+    );
   return stored;
 }
 
 export function deleteInquiry(id: string): boolean {
-  const items = listInquiries();
-  const next = items.filter((i) => i.id !== id);
-  if (next.length === items.length) return false;
-  fs.writeFileSync(INQUIRIES_FILE, JSON.stringify(next, null, 2), "utf8");
-  return true;
+  ensureInquiries();
+  const res = getDb().prepare("DELETE FROM inquiries WHERE id = ?").run(id);
+  return res.changes > 0;
 }
 
 /* ——— site settings (hero image, contact details) ——— */
 
-const SITE_FILE = path.join(DATA_DIR, "site.json");
+const SITE_KEY = "site";
+let siteEnsured = false;
+
+function ensureSite(): void {
+  if (siteEnsured) return;
+  siteEnsured = true;
+  const db = getDb();
+  const row = db.prepare("SELECT value FROM site_settings WHERE key = ?").get(SITE_KEY);
+  if (row) return;
+  const file = legacyFile("site");
+  if (!fs.existsSync(file)) return;
+  try {
+    const legacy = JSON.parse(fs.readFileSync(file, "utf8")) as SiteSettings;
+    db.prepare("INSERT OR REPLACE INTO site_settings (key, value) VALUES (?, ?)").run(
+      SITE_KEY,
+      JSON.stringify(legacy),
+    );
+    retireLegacy("site");
+  } catch {
+    // unreadable legacy settings: start fresh
+  }
+}
 
 export function getSite(): SiteSettings {
-  ensureDir();
-  if (!fs.existsSync(SITE_FILE)) return {};
+  ensureSite();
+  const row = getDb()
+    .prepare("SELECT value FROM site_settings WHERE key = ?")
+    .get(SITE_KEY) as { value: string } | undefined;
+  if (!row?.value) return {};
   try {
-    return JSON.parse(fs.readFileSync(SITE_FILE, "utf8")) as SiteSettings;
+    return JSON.parse(row.value) as SiteSettings;
   } catch {
     return {};
   }
 }
 
 export function saveSite(settings: SiteSettings): void {
-  ensureDir();
-  fs.writeFileSync(SITE_FILE, JSON.stringify(settings, null, 2), "utf8");
+  ensureSite();
+  getDb()
+    .prepare("INSERT OR REPLACE INTO site_settings (key, value) VALUES (?, ?)")
+    .run(SITE_KEY, JSON.stringify(settings));
 }
