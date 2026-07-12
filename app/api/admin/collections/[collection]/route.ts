@@ -3,6 +3,7 @@ import { getCollection } from "@/lib/cms/schema";
 import { listItems, upsertItem } from "@/lib/cms/store";
 import type { CmsItem } from "@/lib/cms/types";
 import { audit, currentUser } from "@/lib/users";
+import { cleanLocales, isIsoDate, isSlug } from "@/lib/validate";
 
 type Params = { params: Promise<{ collection: string }> };
 
@@ -26,6 +27,20 @@ export async function POST(req: Request, { params }: Params) {
   }
   const body = (await req.json().catch(() => null)) as Partial<CmsItem> | null;
   if (!body) return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+  const def = getCollection(collection)!;
+  if (typeof body.slug === "string" && body.slug.length > 0 && !isSlug(body.slug)) {
+    return NextResponse.json(
+      { error: "Slug must be lowercase letters, digits and hyphens" },
+      { status: 400 },
+    );
+  }
+  if (typeof body.date === "string" && body.date.length > 0 && !isIsoDate(body.date)) {
+    return NextResponse.json({ error: "Date must be YYYY-MM-DD" }, { status: 400 });
+  }
+  const locales = cleanLocales(body.locales, def);
+  if ("error" in locales) {
+    return NextResponse.json(locales, { status: 400 });
+  }
   const item: CmsItem = {
     id: body.id && body.id.length > 0 ? body.id : crypto.randomUUID(),
     status: body.status === "published" ? "published" : "draft",
@@ -35,7 +50,7 @@ export async function POST(req: Request, { params }: Params) {
     image: typeof body.image === "string" && body.image.length > 0 ? body.image : null,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
-    locales: body.locales ?? {},
+    locales,
   };
   const stored = upsertItem(collection, item);
   audit(me.username, "item.create", { collection, itemId: stored.id });

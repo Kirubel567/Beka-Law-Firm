@@ -68,6 +68,19 @@ What staff can manage, without a developer:
   overlay), telephone and email
 - **Inquiries** — consultation requests from the contact form land here
 
+### Public-surface protections
+
+- Every API input is validated server-side; collection content is checked
+  against the collection schema (known locales, known fields, sane value
+  types, 200 KB cap per item), slugs and dates against strict formats.
+- The consultation form is defended by a honeypot field plus a per-sender
+  rate limit (5 inquiries/hour), both enforced server-side.
+- New inquiries can be emailed to the firm over its own SMTP account — set
+  the `SMTP_*` / `INQUIRY_NOTIFY_TO` variables from `.env.example`. Unset
+  means disabled; inquiries always land in the portal either way.
+- Uploads are checked by magic bytes (content must actually be a JPG / PNG /
+  WEBP / AVIF, max 8 MB), not just by file extension.
+
 Content lives in SQLite at `data/beka.db` (WAL mode; auto-seeded from the
 shipped dictionaries on first run — a pre-database install's `data/*.json`
 files are imported once and renamed `*.imported`). Uploads land in

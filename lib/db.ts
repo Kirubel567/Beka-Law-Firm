@@ -82,6 +82,12 @@ CREATE TABLE IF NOT EXISTS login_attempts (
   fails      INTEGER NOT NULL DEFAULT 0,
   locked_until TEXT
 );
+
+CREATE TABLE IF NOT EXISTS rate_limits (
+  key          TEXT PRIMARY KEY,
+  count        INTEGER NOT NULL DEFAULT 0,
+  window_start INTEGER NOT NULL
+);
 `;
 
 function open(): Database.Database {
