@@ -92,16 +92,16 @@ export default function Header({ locale, dict }: { locale: Locale; dict: Dict })
         <button
           type="button"
           onClick={() => setOpen(!open)}
-          className="label-caps flex items-center gap-3 text-parchment-100 lg:hidden"
+          className="-mr-2 flex h-11 w-11 items-center justify-center text-parchment-100 lg:hidden"
           aria-expanded={open}
+          aria-label={open ? dict.nav.close : dict.nav.menu}
         >
-          {open ? dict.nav.close : dict.nav.menu}
-          <span className="flex flex-col gap-[5px]" aria-hidden="true">
+          <span className="flex flex-col gap-[6px]" aria-hidden="true">
             <span
-              className={`block h-px w-6 bg-current transition-transform duration-500 ${open ? "translate-y-[3px] rotate-45" : ""}`}
+              className={`block h-px w-6 bg-current transition-transform duration-500 ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
             />
             <span
-              className={`block h-px w-6 bg-current transition-transform duration-500 ${open ? "-translate-y-[3px] -rotate-45" : ""}`}
+              className={`block h-px w-6 bg-current transition-transform duration-500 ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`}
             />
           </span>
         </button>

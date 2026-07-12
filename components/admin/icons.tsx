@@ -94,6 +94,22 @@ export function IconPlus({ className = "h-4 w-4" }: P) {
   );
 }
 
+export function IconMenu({ className = "h-5 w-5" }: P) {
+  return (
+    <svg viewBox="0 0 20 20" className={className} {...base} aria-hidden="true">
+      <path d="M3 6h14M3 10h14M3 14h14" />
+    </svg>
+  );
+}
+
+export function IconClose({ className = "h-5 w-5" }: P) {
+  return (
+    <svg viewBox="0 0 20 20" className={className} {...base} aria-hidden="true">
+      <path d="M5 5l10 10M15 5L5 15" />
+    </svg>
+  );
+}
+
 export function IconSun({ className = "h-4 w-4" }: P) {
   return (
     <svg viewBox="0 0 20 20" className={className} {...base} aria-hidden="true">

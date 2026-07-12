@@ -7,10 +7,12 @@ import { collections } from "@/lib/cms/schema";
 import { SealMark } from "@/components/Motifs";
 import {
   IconArticle,
+  IconClose,
   IconDashboard,
   IconExternal,
   IconInbox,
   IconMatter,
+  IconMenu,
   IconMoon,
   IconPerson,
   IconQuote,
@@ -232,11 +234,19 @@ export default function PortalChrome({ children }: { children: ReactNode }) {
         <div className="fixed inset-0 z-50 lg:hidden">
           <button
             type="button"
-            aria-label="Close menu"
+            aria-label="Dismiss menu"
             onClick={() => setMobileOpen(false)}
             className="absolute inset-0 bg-(--p-scrim)"
           />
           <aside className="absolute inset-y-0 left-0 w-64 border-r border-(--p-border) bg-(--p-panel)">
+            <button
+              type="button"
+              onClick={() => setMobileOpen(false)}
+              aria-label="Close menu"
+              className="absolute top-5 right-3 flex h-9 w-9 items-center justify-center text-(--p-text-3) transition-colors hover:text-(--p-accent)"
+            >
+              <IconClose />
+            </button>
             {sidebar}
           </aside>
         </div>
@@ -244,15 +254,16 @@ export default function PortalChrome({ children }: { children: ReactNode }) {
 
       <div className="flex min-w-0 flex-1 flex-col lg:pl-64">
         <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-(--p-border) bg-(--p-topbar) px-5 backdrop-blur-sm">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={() => setMobileOpen(true)}
-              className="label-caps text-(--p-text-2) lg:hidden"
+              aria-label="Open menu"
+              className="-ml-2 flex h-9 w-9 items-center justify-center text-(--p-text-2) transition-colors hover:text-(--p-accent) lg:hidden"
             >
-              Menu
+              <IconMenu />
             </button>
-            <h1 className="label-caps text-(--p-text-2)">{pageTitle}</h1>
+            <h1 className="label-caps hidden text-(--p-text-2) lg:block">{pageTitle}</h1>
           </div>
           <div className="flex items-center gap-4">
             {(["en", "am", "om"] as const).map((l) => (

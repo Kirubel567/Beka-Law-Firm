@@ -83,6 +83,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={loc}
+      suppressHydrationWarning
       className={`${cormorant.variable} ${outfit.variable} ${ethioSerif.variable} ${ethioSans.variable}`}
     >
       <body className="font-body antialiased">
