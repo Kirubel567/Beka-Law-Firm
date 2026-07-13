@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import type { Dict, Locale } from "@/lib/content/types";
-import { SealMark } from "./Motifs";
 
 const settle = [0.22, 1, 0.36, 1] as const;
 
@@ -67,16 +66,6 @@ export default function HomeHero({
           <div className="absolute inset-0 bg-gradient-to-r from-basalt-950 via-basalt-950/20 to-transparent" />
         </motion.div>
       )}
-      {/* faint seal in relief, off-canvas right — carved, not printed */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.96 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 2.4, ease: settle }}
-        className="pointer-events-none absolute top-1/2 -right-40 -translate-y-1/2 md:-right-24"
-        aria-hidden="true"
-      >
-        <SealMark className="h-[34rem] w-[34rem] text-brass-500/[0.09] md:h-[44rem] md:w-[44rem]" />
-      </motion.div>
 
       <div className="relative mx-auto w-full max-w-7xl px-5 pt-44 pb-16 md:px-8 md:pb-24">
         <motion.p {...rise(0.2)} className="label-caps text-brass-400">
