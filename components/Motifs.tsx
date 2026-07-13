@@ -47,8 +47,9 @@ export function ThreadDivider({ className = "" }: { className?: string }) {
 
 /**
  * The firm's actual mark — the red icon block from the BEKA logo, cropped from
- * the source lockup. Used only in the two navbars (public header + portal
- * sidebar); every other place keeps the line-art SealMark.
+ * the source lockup. Used in the two navbars (public header + portal sidebar)
+ * and the footer; every other place (hero, section marks, the inquiry
+ * confirmation seal) keeps the line-art SealMark.
  */
 export function BekaMark({ className = "" }: { className?: string }) {
   return (

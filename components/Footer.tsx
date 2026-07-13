@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Dict, Locale } from "@/lib/content/types";
 import { locales, localeNames } from "@/lib/i18n";
-import { SealMark, ThreadDivider } from "./Motifs";
+import { BekaMark, ThreadDivider } from "./Motifs";
 
 export default function Footer({ locale, dict }: { locale: Locale; dict: Dict }) {
   const year = new Date().getFullYear();
@@ -26,7 +26,7 @@ export default function Footer({ locale, dict }: { locale: Locale; dict: Dict })
         <ThreadDivider className="mx-auto mb-14 h-6 w-72 text-brass-500/50" />
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <SealMark className="h-14 w-14 text-brass-400" />
+            <BekaMark className="h-14 w-auto" />
             <p className="mt-5 font-display text-xl text-parchment-100">{dict.common.firmFull}</p>
             <p className="label-caps mt-2 text-brass-400/80">{dict.common.estLine}</p>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-parchment-200/70">
