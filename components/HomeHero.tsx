@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import type { Dict, Locale } from "@/lib/content/types";
 import { SealMark } from "./Motifs";
@@ -14,33 +15,56 @@ const rise = (delay: number) => ({
 });
 
 /**
- * Cinematic, unhurried arrival. No carousel, no stock photograph,
- * no urgency — basalt, a seal, and a statement of record.
- * If the firm uploads real photography via the portal, it appears
- * behind a basalt overlay so the register never changes.
+ * Cinematic, unhurried arrival — basalt, a seal, and a statement of record.
+ * If the firm uploads photography via the portal it appears in the right
+ * three-quarters of the frame, behind a basalt overlay so the register never
+ * changes. Several images crossfade on a staff-set interval.
  */
 export default function HomeHero({
   locale,
   dict,
-  heroImage = null,
+  heroImages = [],
+  heroIntervalSec = 6,
 }: {
   locale: Locale;
   dict: Dict;
-  heroImage?: string | null;
+  heroImages?: string[];
+  heroIntervalSec?: number;
 }) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (heroImages.length <= 1) return;
+    const ms = Math.max(2, heroIntervalSec) * 1000;
+    const id = setInterval(() => setIndex((n) => (n + 1) % heroImages.length), ms);
+    return () => clearInterval(id);
+  }, [heroImages.length, heroIntervalSec]);
+
   return (
     <section className="basalt-relief relative flex min-h-svh flex-col justify-end overflow-hidden text-parchment-100">
-      {heroImage && (
+      {heroImages.length > 0 && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 2.4, ease: settle }}
-          className="absolute inset-0"
+          className="absolute inset-y-0 right-0 w-full md:w-3/4"
           aria-hidden="true"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={heroImage} alt="" className="h-full w-full object-cover opacity-40" />
+          {heroImages.map((src, i) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              key={src}
+              src={src}
+              alt=""
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1500ms] ease-in-out ${
+                i === index ? "opacity-40" : "opacity-0"
+              }`}
+            />
+          ))}
+          {/* basalt overlay — unchanged treatment, keeps the image behind glass */}
           <div className="absolute inset-0 bg-gradient-to-t from-basalt-950 via-basalt-950/75 to-basalt-950/55" />
+          {/* left edge dissolves into the basalt so the 75% panel has no hard seam */}
+          <div className="absolute inset-0 bg-gradient-to-r from-basalt-950 via-basalt-950/20 to-transparent" />
         </motion.div>
       )}
       {/* faint seal in relief, off-canvas right — carved, not printed */}
@@ -96,7 +120,7 @@ export default function HomeHero({
         >
           <Link
             href={`/${locale}/contact`}
-            className="border border-brass-500/70 px-7 py-4 text-[0.72rem] tracking-[0.22em] text-brass-300 uppercase transition-colors duration-700 hover:border-brass-300 hover:bg-brass-400/10"
+            className="gold-sheen-border border px-7 py-4 text-[0.72rem] tracking-[0.22em] text-brass-300 uppercase transition-colors duration-700 hover:bg-brass-400/10"
           >
             {dict.nav.requestConsultation}
           </Link>

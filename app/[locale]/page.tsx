@@ -23,7 +23,18 @@ export default async function HomePage({
 
   return (
     <>
-      <HomeHero locale={loc} dict={dict} heroImage={site.heroImage ?? null} />
+      <HomeHero
+        locale={loc}
+        dict={dict}
+        heroImages={
+          site.heroImages && site.heroImages.length > 0
+            ? site.heroImages
+            : site.heroImage
+              ? [site.heroImage]
+              : []
+        }
+        heroIntervalSec={site.heroIntervalSec ?? 6}
+      />
 
       {/* ——— Chapter index ——— */}
       <section className="grain relative bg-parchment-100 py-24 md:py-32">

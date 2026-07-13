@@ -13,10 +13,11 @@
   --color-parchment-200: #eae2d0;
   --color-parchment-300: #d9cdb4;
 
-  --color-brass-300: #d6b878;
-  --color-brass-400: #c4a25c;
-  --color-brass-500: #a8823e;
-  --color-brass-600: #8c6a30;
+  /* Shinier, more luminous gold (leaf-gold highlights, warm metal mids) */
+  --color-brass-300: #f0d67a;
+  --color-brass-400: #e0bd5a;
+  --color-brass-500: #c99a34;
+  --color-brass-600: #9a7628;
 
   --color-terracotta-500: #a65e3f;
   --color-terracotta-600: #8f4d32;
@@ -86,7 +87,7 @@
 .basalt-relief {
   background-color: var(--color-basalt-900);
   background-image:
-    radial-gradient(1200px 600px at 70% -10%, rgba(214, 184, 120, 0.06), transparent 60%),
+    radial-gradient(1200px 600px at 70% -10%, rgba(240, 214, 122, 0.07), transparent 60%),
     radial-gradient(900px 500px at 10% 110%, rgba(166, 94, 63, 0.05), transparent 60%);
 }
 
@@ -95,6 +96,12 @@
   height: 1px;
   background: linear-gradient(to right, transparent, var(--color-brass-500) 20%, var(--color-brass-500) 80%, transparent);
   opacity: 0.5;
+}
+
+/* Metallic gold — a struck-leaf sheen for gold borders and buttons.
+   Light highlight → warm mid → deep shadow → highlight, catches like metal. */
+.gold-sheen-border {
+  border-image: linear-gradient(135deg, #f7e9ad 0%, #d9b24c 40%, #8f6f2a 58%, #f0d67a 100%) 1;
 }
 
 /* Editorial link — underline that settles in */
@@ -134,8 +141,8 @@ html[data-theme="dark"] {
   --p-text-2: rgba(234, 226, 208, 0.78);
   --p-text-3: rgba(234, 226, 208, 0.55);
   --p-text-4: rgba(234, 226, 208, 0.36);
-  --p-accent: #d6b878;
-  --p-accent-2: rgba(196, 162, 92, 0.8);
+  --p-accent: #f0d67a;
+  --p-accent-2: rgba(224, 189, 90, 0.85);
   --p-alert: #a65e3f;
   color-scheme: dark;
 }
@@ -153,8 +160,8 @@ html[data-theme="light"] {
   --p-text-2: rgba(46, 42, 34, 0.8);
   --p-text-3: rgba(46, 42, 34, 0.6);
   --p-text-4: rgba(46, 42, 34, 0.42);
-  --p-accent: #8c6a30;
-  --p-accent-2: #a8823e;
+  --p-accent: #9a7628;
+  --p-accent-2: #c99a34;
   --p-alert: #8f4d32;
   color-scheme: light;
 }

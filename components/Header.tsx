@@ -58,7 +58,7 @@ export default function Header({ locale, dict }: { locale: Locale; dict: Dict })
     <header
       className={`fixed inset-x-0 top-0 z-50 text-parchment-100 transition-all duration-700 ${
         scrolled || open
-          ? "bg-basalt-950/95 shadow-[0_1px_0_0_rgba(214,184,120,0.15)] backdrop-blur-sm"
+          ? "bg-basalt-950/95 shadow-[0_1px_0_0_rgba(240,214,122,0.18)] backdrop-blur-sm"
           : "bg-gradient-to-b from-basalt-950/80 to-transparent"
       }`}
     >
@@ -83,7 +83,7 @@ export default function Header({ locale, dict }: { locale: Locale; dict: Dict })
           <LangSwitch locale={locale} rest={rest} />
           <Link
             href={`/${locale}/contact`}
-            className="border border-brass-500/70 px-4 py-2 text-[0.72rem] tracking-[0.18em] text-brass-300 uppercase transition-colors duration-500 hover:border-brass-300 hover:bg-brass-400/10"
+            className="gold-sheen-border border px-4 py-2 text-[0.72rem] tracking-[0.18em] text-brass-300 uppercase transition-colors duration-500 hover:bg-brass-400/10"
           >
             {dict.nav.requestConsultation}
           </Link>

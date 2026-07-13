@@ -1,10 +1,13 @@
 import Link from "next/link";
 import type { Dict, Locale } from "@/lib/content/types";
 import { locales, localeNames } from "@/lib/i18n";
+import { getSite } from "@/lib/cms/store";
 import { BekaMark, ThreadDivider } from "./Motifs";
+import { SocialIcon, socialLabel } from "./SocialIcons";
 
 export default function Footer({ locale, dict }: { locale: Locale; dict: Dict }) {
   const year = new Date().getFullYear();
+  const social = getSite().social ?? [];
   const chapters = [
     { href: `/${locale}/origins`, label: dict.nav.origins },
     { href: `/${locale}/people`, label: dict.nav.people },
@@ -32,6 +35,24 @@ export default function Footer({ locale, dict }: { locale: Locale; dict: Dict })
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-parchment-200/70">
               {dict.footer.blurb}
             </p>
+            {social.length > 0 && (
+              <ul className="mt-6 flex items-center gap-3">
+                {social.map((s) => (
+                  <li key={s.platform + s.url}>
+                    <a
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={socialLabel(s.platform)}
+                      title={socialLabel(s.platform)}
+                      className="flex h-9 w-9 items-center justify-center border border-parchment-100/15 text-parchment-200/70 transition-colors hover:border-brass-400/60 hover:text-brass-300"
+                    >
+                      <SocialIcon platform={s.platform} className="h-4 w-4" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           <nav aria-label={dict.footer.chaptersTitle}>
