@@ -45,10 +45,23 @@ export function ThreadDivider({ className = "" }: { className?: string }) {
   );
 }
 
+/**
+ * The firm's actual mark — the red icon block from the BEKA logo, cropped from
+ * the source lockup. Used in the two navbars (public header + portal sidebar)
+ * and the footer; every other place (hero, section marks, the inquiry
+ * confirmation seal) keeps the line-art SealMark.
+ */
+export function BekaMark({ className = "" }: { className?: string }) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src="/brand/beka-mark.png" alt="Belay Ketema & Partners" className={className} />
+  );
+}
+
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
     <span className={`inline-flex items-center gap-3 ${className}`}>
-      <SealMark className="h-9 w-9 shrink-0 text-brass-400" />
+      <BekaMark className="h-9 w-auto shrink-0" />
       <span className="flex flex-col leading-none">
         <span className="font-display text-[1.35rem] font-medium tracking-[0.18em]">BEKA</span>
         <span className="label-caps mt-1 text-[0.55rem] opacity-70">Belay Ketema &amp; Partners LLP</span>

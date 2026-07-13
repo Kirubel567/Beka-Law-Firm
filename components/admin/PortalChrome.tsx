@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { collections } from "@/lib/cms/schema";
-import { SealMark } from "@/components/Motifs";
+import { BekaMark } from "@/components/Motifs";
 import {
   IconArticle,
   IconClose,
@@ -192,7 +192,7 @@ export default function PortalChrome({ children }: { children: ReactNode }) {
   const sidebar = (
     <div className="flex h-full flex-col">
       <Link href="/admin" className="flex items-center gap-3 px-5 pt-6 pb-5">
-        <SealMark className="h-9 w-9 shrink-0 text-(--p-accent)" />
+        <BekaMark className="h-9 w-auto shrink-0" />
         <span className="flex flex-col leading-none">
           <span className="font-display text-lg font-medium tracking-[0.16em] text-(--p-text)">BEKA</span>
           <span className="label-caps mt-1 text-[0.55rem] text-(--p-accent-2)">Staff Portal</span>
