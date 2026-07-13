@@ -1,12 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  /* Material palette — basalt, parchment, brass, terracotta */
-  --color-basalt-950: #12100d;
-  --color-basalt-900: #17140f;
-  --color-basalt-800: #211d16;
-  --color-basalt-700: #2e2920;
-  --color-basalt-600: #443d31;
+  /* Material palette — the firm's crimson replaces basalt as the dark ground.
+     A very dark, slightly desaturated maroon drawn from the logo red (#9e2c34):
+     light text still reads at ~16:1, gold at ~12:1, so it behaves exactly like
+     the old near-black, just wearing the firm's colour. Parchment is unchanged. */
+  --color-basalt-950: #230b0d;
+  --color-basalt-900: #2b0d10;
+  --color-basalt-800: #391316;
+  --color-basalt-700: #4a1c1f;
+  --color-basalt-600: #682c31;
 
   --color-parchment-50: #faf7f0;
   --color-parchment-100: #f4efe3;
@@ -129,12 +132,12 @@
    The public site keeps its single editorial palette by design; only the
    portal (its own root layout sets data-theme) swaps these surfaces. */
 html[data-theme="dark"] {
-  --p-bg: #12100d;
-  --p-panel: #17140f;
-  --p-hover: #211d16;
-  --p-input: #12100d;
-  --p-topbar: rgba(18, 16, 13, 0.94);
-  --p-scrim: rgba(18, 16, 13, 0.72);
+  --p-bg: #230b0d;
+  --p-panel: #2b0d10;
+  --p-hover: #391316;
+  --p-input: #230b0d;
+  --p-topbar: rgba(35, 11, 13, 0.94);
+  --p-scrim: rgba(35, 11, 13, 0.72);
   --p-border: rgba(244, 239, 227, 0.1);
   --p-border-2: rgba(244, 239, 227, 0.2);
   --p-text: #faf7f0;
