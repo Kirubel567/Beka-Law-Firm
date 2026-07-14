@@ -10,6 +10,7 @@ import "../globals.css";
 import { getDict, isLocale, locales } from "@/lib/i18n";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import LegalAssistant from "@/components/assistant/LegalAssistant";
 
 /**
  * Latin display/body paired with Ethiopic display/body of equal weight.
@@ -90,6 +91,7 @@ export default async function LocaleLayout({
         <Header locale={locale} dict={dict} />
         <main>{children}</main>
         <Footer locale={locale} dict={dict} />
+        <LegalAssistant locale={locale} />
       </body>
     </html>
   );
