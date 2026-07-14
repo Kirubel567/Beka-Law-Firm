@@ -7,6 +7,7 @@ import { collections } from "@/lib/cms/schema";
 import { BekaMark } from "@/components/Motifs";
 import {
   IconArticle,
+  IconAssistant,
   IconClose,
   IconDashboard,
   IconExternal,
@@ -153,6 +154,7 @@ export default function PortalChrome({ children }: { children: ReactNode }) {
             {
               label: "Administration",
               items: [
+                { href: "/admin/assistant", label: "Assistant sources", icon: IconAssistant, count: null as number | null, drafts: 0, external: false },
                 { href: "/admin/users", label: "Staff accounts", icon: IconUsers, count: null as number | null, drafts: 0, external: false },
                 { href: "/admin/audit", label: "Activity log", icon: IconHistory, count: null as number | null, drafts: 0, external: false },
               ],
@@ -176,6 +178,7 @@ export default function PortalChrome({ children }: { children: ReactNode }) {
     if (pathname === "/admin/inquiries") return "Inquiries";
     if (pathname === "/admin/users") return "Staff accounts";
     if (pathname === "/admin/audit") return "Activity log";
+    if (pathname === "/admin/assistant") return "Assistant sources";
     const seg = pathname.split("/")[2];
     const col = collections.find((c) => c.slug === seg);
     if (col) return pathname.split("/").length > 3 ? `${col.label} · Editor` : col.label;
