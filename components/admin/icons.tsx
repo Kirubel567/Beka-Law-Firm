@@ -146,3 +146,13 @@ export function IconHistory({ className = "h-4 w-4" }: P) {
     </svg>
   );
 }
+
+export function IconAssistant({ className = "h-4 w-4" }: P) {
+  return (
+    <svg viewBox="0 0 20 20" className={className} {...base} aria-hidden="true">
+      <path d="M3 4.5h14v9H9l-4 3v-3H3z" />
+      <path d="M7 9h.01M10 9h.01M13 9h.01" strokeWidth="1.8" />
+    </svg>
+  );
+}
+

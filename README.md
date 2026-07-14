@@ -125,3 +125,15 @@ Page furniture (navigation, section headings, form labels) lives in
 `lib/content/types.ts`. Collection content (articles, people, matters,
 testimonials) is managed in the portal.
 
+## Beka Legal Information Assistant
+
+The `logo-on-gold-theme` branch now includes the public-information assistant implementation.
+It is limited to published Beka website content and administrator-approved public legal sources;
+it is not an automated lawyer and must never receive internal, client, privileged, or confidential
+material.
+
+The browser calls the same-origin Next.js gateway. A private FastAPI service under
+`rag-service/` owns its own SQLite corpus, `intfloat/multilingual-e5-small` embeddings, exact
+NumPy retrieval, and Gemini streaming. Administrators manage the corpus at `/admin/assistant`.
+See [docs/LEGAL_ASSISTANT_IMPLEMENTATION.md](docs/LEGAL_ASSISTANT_IMPLEMENTATION.md) for the
+folder map, setup sequence, security boundary, source workflow, and release gates.
