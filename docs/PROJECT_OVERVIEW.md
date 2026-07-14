@@ -30,8 +30,9 @@ The client — ZAKE Tech Group — proposed a two-phase engagement to the firm:
 1. **Phase 1 (done, this repo):** trilingual public website + staff CMS
    portal, replacing a static site that had no working blog, no article
    URLs, and a placeholder hero image.
-2. **Phase 2 (not started):** a RAG-based AI legal research assistant,
-   internal-only, grounded strictly in the firm's own documents.
+2. **Phase 2 (implementation added; release approval pending):** a public website-navigation
+   and general legal-information assistant grounded only in published Beka content and curated,
+   administrator-approved public legal sources. It does not ingest internal firm or client files.
 
 Everything in this repository is Phase 1 of that proposal, **plus** a set of
 backend hardening phases (our own internal numbering — see §3) that were
@@ -79,10 +80,11 @@ full audit trail. See §6.
 Server-side validation on every API input, spam defenses on the contact
 form, optional email notifications, and upload content-sniffing. See §7.
 
-### Proposal Phase 2: RAG AI legal assistant — **not started**
+### Proposal Phase 2: Beka Legal Information Assistant — **implementation added**
 
-Deliberately deferred. See §9 for what it will need and how it plugs into
-what exists today.
+The code is present, but production credentials, corpus approval, deployment, evaluation, and
+written approval for the revised public-facing scope are release gates. See §9 and
+`docs/LEGAL_ASSISTANT_IMPLEMENTATION.md`.
 
 ---
 
@@ -335,28 +337,19 @@ custom route handler reads from disk per-request instead.
 
 ## 9. What's NOT done — for whoever picks this up next
 
-### Proposal Phase 2 / Backend Phase 4 — RAG AI Legal Assistant (not started)
+### Proposal Phase 2 / Backend Phase 4 — Beka Legal Information Assistant
 
-Staff-facing only (no client-facing AI per the signed proposal). Needs,
-roughly, in build order:
+Implemented as a same-origin public Next.js gateway plus a private FastAPI RAG service. English
+published website content can be synchronized from `/admin/assistant`; curated English public
+legal PDF/DOCX/TXT/Markdown sources require administrator approval. Retrieval uses normalized
+`intfloat/multilingual-e5-small` embeddings stored as `float32` BLOBs in a separate SQLite file,
+then exact NumPy cosine matching. Gemini streams grounded answers in English, Amharic, or Afaan
+Oromo with deterministic citation metadata.
 
-1. **Document ingestion** — portal screen to upload firm documents
-   (PDF/DOCX), extract text, chunk it, generate embeddings (recommend
-   Voyage AI, Anthropic's suggested embedding provider), store vectors.
-   Given the likely corpus size for a single firm, exact cosine search
-   against a table in the existing SQLite database is almost certainly
-   sufficient — no need to stand up a dedicated vector database unless the
-   document count gets very large.
-2. **Retrieval + chat** — a new `/api/admin/assistant` endpoint: embed the
-   staff member's question, retrieve top-k chunks, call Claude with the
-   retrieved context, stream the answer back with citations to the specific
-   source document(s).
-3. **Governance** — this is why Backend Phase 2 (roles + audit log) exists
-   already: gate the assistant by role, log every query and which documents
-   backed the answer, let an admin approve/remove ingested documents.
-
-The existing `users`/`audit_log` tables and role system are intentionally
-ready for this — no schema changes needed to start.
+Production launch still requires written scope approval, lawyer-reviewed launch content,
+credentials, private-service deployment, backups, multilingual safety evaluation, accessibility
+testing, and load testing. Internal, client, privileged, and confidential files are explicitly
+out of scope. See `docs/LEGAL_ASSISTANT_IMPLEMENTATION.md`.
 
 ### Deployment (not done — "Backend Phase 5" in earlier planning)
 
