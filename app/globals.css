@@ -75,25 +75,19 @@
   line-height: 1.9;
 }
 
-/* Parchment sections carry the same wave lines, drawn in ink */
-.grain::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.7;
+/* Parchment (white) sections carry the wave lines as a true element background —
+   it sits beneath all content and cards, and only on the light surfaces. */
+.grain {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='10'%3E%3Cpath d='M0 5 Q10 1 20 5 T40 5' fill='none' stroke='%232e2a22' stroke-opacity='0.06' stroke-width='1'/%3E%3C/svg%3E");
 }
 
-/* Basalt relief for dark sections — the wave lines in parchment-light over the
-   dark ground (the texture reads exactly like the reference screenshot here) */
+/* Basalt relief for dark sections — no line texture here; the dark grounds
+   stay clean (only the white parts of the site carry the pattern). */
 .basalt-relief {
   background-color: var(--color-basalt-900);
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='10'%3E%3Cpath d='M0 5 Q10 1 20 5 T40 5' fill='none' stroke='%23f2ead9' stroke-opacity='0.07' stroke-width='1'/%3E%3C/svg%3E"),
     radial-gradient(1200px 600px at 70% -10%, rgba(240, 214, 122, 0.07), transparent 60%),
     radial-gradient(900px 500px at 10% 110%, rgba(166, 94, 63, 0.05), transparent 60%);
-  background-repeat: repeat, no-repeat, no-repeat;
 }
 
 /* Hairline rules in brass */
