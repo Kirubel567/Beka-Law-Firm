@@ -11,3 +11,8 @@ next-env.d.ts
 data/
 public/uploads/
 backups/
+rag-service/.venv/
+rag-service/.env
+rag-service/data/
+rag-service/__pycache__/
+rag-service/.pytest_cache/
