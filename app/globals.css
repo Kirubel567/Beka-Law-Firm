@@ -50,7 +50,7 @@
   body {
     background-color: var(--color-parchment-100);
     /* undulating hairline texture — the whole site sits on quiet wave lines */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='10'%3E%3Cpath d='M0 5 Q10 1 20 5 T40 5' fill='none' stroke='%232e2a22' stroke-opacity='0.06' stroke-width='1'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='7'%3E%3Cpath d='M0 3.5 Q10 1 20 3.5 T40 3.5' fill='none' stroke='%232e2a22' stroke-opacity='0.06' stroke-width='1'/%3E%3C/svg%3E");
     color: var(--color-ink-700);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
@@ -78,7 +78,7 @@
 /* Parchment (white) sections carry the wave lines as a true element background —
    it sits beneath all content and cards, and only on the light surfaces. */
 .grain {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='10'%3E%3Cpath d='M0 5 Q10 1 20 5 T40 5' fill='none' stroke='%232e2a22' stroke-opacity='0.06' stroke-width='1'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='7'%3E%3Cpath d='M0 3.5 Q10 1 20 3.5 T40 3.5' fill='none' stroke='%232e2a22' stroke-opacity='0.06' stroke-width='1'/%3E%3C/svg%3E");
 }
 
 /* Basalt relief for dark sections — no line texture here; the dark grounds
