@@ -60,12 +60,13 @@ export interface Dict {
     people: string;
     practice: string;
     matters: string;
-    presence: string;
     insights: string;
     testimonials: string;
     discretion: string;
     careers: string;
     contact: string;
+    privacy: string;
+    terms: string;
     requestConsultation: string;
     menu: string;
     close: string;
@@ -152,18 +153,6 @@ export interface Dict {
     lede: string;
     note: string;
     items: Matter[];
-  };
-  presence: {
-    kicker: string;
-    title: string;
-    lede: string;
-    blocks: { title: string; text: string }[];
-    affiliationsTitle: string;
-    affiliations: string[];
-    languagesTitle: string;
-    languages: string[];
-    jurisdictionsTitle: string;
-    jurisdictions: string[];
   };
   insights: {
     kicker: string;

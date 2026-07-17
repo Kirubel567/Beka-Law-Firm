@@ -40,7 +40,6 @@ export default function Header({ locale, dict }: { locale: Locale; dict: Dict })
     { href: `/${locale}/people`, label: dict.nav.people },
     { href: `/${locale}/practice`, label: dict.nav.practice },
     { href: `/${locale}/matters`, label: dict.nav.matters },
-    { href: `/${locale}/presence`, label: dict.nav.presence },
     { href: `/${locale}/insights`, label: dict.nav.insights },
   ];
 

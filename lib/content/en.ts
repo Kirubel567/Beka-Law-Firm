@@ -9,16 +9,17 @@ export const en: Dict = {
       "Belay Ketema & Partners LLP is an Ethiopian law firm in Addis Ababa advising corporations, institutions, embassies and families — in Amharic, English and Afaan Oromoo — since 1990.",
   },
   nav: {
-    origins: "Origins",
+    origins: "About BEKA",
     people: "People",
-    practice: "Practice",
-    matters: "Matters",
-    presence: "Presence",
+    practice: "Practice Areas",
+    matters: "Case Studies",
     insights: "Insights",
-    testimonials: "In Their Words",
+    testimonials: "Client Testimonials",
     discretion: "Discretion",
     careers: "Careers",
     contact: "Contact",
+    privacy: "Privacy Policy",
+    terms: "Terms of Use",
     requestConsultation: "Request a consultation",
     menu: "Menu",
     close: "Close",
@@ -72,18 +73,23 @@ export const en: Dict = {
         line: "The work itself — told carefully, and without names.",
       },
       {
-        href: "/presence",
-        title: "Presence",
-        line: "Two worlds, one standard: Ethiopian ground, international register.",
-      },
-      {
         href: "/insights",
         title: "Insights",
         line: "Notes from practice, written for clients rather than colleagues.",
       },
       {
+      href: "/testimonials",
+      title: "Client Testimonials",
+      line: "Remarks provided by our clients, reproduced in accordance with their permission.",
+      }
+      {
+        href: "/discretion",
+        title: "Discretion",
+        line: "How we treat what you tell us.",
+      },
+      {
         href: "/contact",
-        title: "Correspondence",
+        title: "Contact",
         line: "A private way to begin. A partner reads every inquiry.",
       },
     ],
@@ -121,7 +127,7 @@ export const en: Dict = {
     discretionText:
       "Confidentiality at this firm is not a policy page; it is the operating principle that decides how files are staffed, stored, and spoken about. We keep a page on it — not to persuade you, but so you know exactly what to expect.",
     discretionLink: "Read the discretion page",
-    contactKicker: "Chapter VII · Correspondence",
+    contactKicker: "Chapter VII · Contact",
     contactTitle: "Begin quietly.",
     contactText:
       "Write briefly, in the language you prefer. Your inquiry is read by a partner — not routed through a call centre — and answered within two business days.",
@@ -461,40 +467,6 @@ export const en: Dict = {
           ["Litigation", "None"],
         ],
       },
-    ],
-  },
-  presence: {
-    kicker: "Chapter V · Presence",
-    title: "Two worlds. One standard.",
-    lede: "Addis Ababa is where Africa deliberates: seat of the African Union, host to one of the world's densest diplomatic corps. A firm practising here seriously must hold two fluencies at once. We hold both — and translate between them without loss.",
-    blocks: [
-      {
-        title: "Ethiopian ground",
-        text: "Federal and regional courts, ministries and regulators, the actual texture of practice in three working languages. We do not summarize Ethiopia for visitors; we practise in it.",
-      },
-      {
-        title: "International register",
-        text: "WIPO accreditation, World Bank–framework transactions, arbitrations seated abroad, daily correspondence with foreign counsel. Our written English is held to the standard of the firms we work opposite.",
-      },
-      {
-        title: "The interface",
-        text: "For foreign clients we are the reading of Ethiopian reality no offshore memorandum can give. For Ethiopian clients we are international standards without a foreign intermediary. The bridge runs both directions.",
-      },
-    ],
-    affiliationsTitle: "Of record",
-    affiliations: [
-      "Accredited before the World Intellectual Property Organization (WIPO)",
-      "Counsel in transactions under World Bank carbon finance frameworks",
-      "Practice before the Federal Courts of Ethiopia since 1990",
-      "Constituted as an LLP under Proclamation No. 1249/2021",
-    ],
-    languagesTitle: "Working languages",
-    languages: ["Amharic", "English", "Afaan Oromoo"],
-    jurisdictionsTitle: "Where the work runs",
-    jurisdictions: [
-      "Ethiopia — federal and regional jurisdictions",
-      "International arbitration — seats abroad, Ethiopian law",
-      "Cross-border matters — coordinated with foreign counsel",
     ],
   },
   insights: {
