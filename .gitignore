@@ -14,5 +14,8 @@ backups/
 rag-service/.venv/
 rag-service/.env
 rag-service/data/
-rag-service/__pycache__/
 rag-service/.pytest_cache/
+
+# Python build artifacts (anywhere)
+__pycache__/
+*.pyc
