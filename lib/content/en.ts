@@ -78,10 +78,10 @@ export const en: Dict = {
         line: "Notes from practice, written for clients rather than colleagues.",
       },
       {
-      href: "/testimonials",
-      title: "Client Testimonials",
-      line: "Remarks provided by our clients, reproduced in accordance with their permission.",
-      }
+        href: "/testimonials",
+        title: "Client Testimonials",
+        line: "Remarks provided by our clients, reproduced in accordance with their permission.",
+      },
       {
         href: "/discretion",
         title: "Discretion",
