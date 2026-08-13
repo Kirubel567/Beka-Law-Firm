@@ -17,10 +17,23 @@ export interface CmsItem {
   locales: Partial<Record<Locale, Record<string, unknown>>>;
 }
 
+export interface SocialLink {
+  /** platform key — drives the icon (linkedin, facebook, x, instagram, telegram, youtube, tiktok) */
+  platform: string;
+  url: string;
+}
+
 export interface SiteSettings {
   phone?: string;
   email?: string;
+  /** legacy single hero image — kept so older saved settings still resolve */
   heroImage?: string | null;
+  /** hero images to shuffle through; when set, supersedes heroImage */
+  heroImages?: string[];
+  /** seconds each hero image is shown before crossfading to the next */
+  heroIntervalSec?: number;
+  /** the firm's social profiles, shown in the footer */
+  social?: SocialLink[];
 }
 
 export type FieldType = "text" | "textarea" | "paragraphs" | "lines" | "pairs" | "date";

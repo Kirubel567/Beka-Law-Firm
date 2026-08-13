@@ -9,16 +9,17 @@ export const om: Dict = {
       "Belay Ketema fi Michoota — dhaabbata seeraa Finfinnee kan bara 1990 irraa eegalee dhaabbilee, ejensiiwwan, imbaasiiwwanii fi maatiiwwaniif Afaan Amaaraa, Ingiliffaa fi Afaan Oromootiin tajaajila seeraa kennu.",
   },
   nav: {
-    origins: "Ka'umsa",
+    origins: "Waa'ee BEKA",
     people: "Namoota",
     practice: "Damee Hojii",
-    matters: "Dhimmoota",
-    presence: "Argama",
+    matters: "Addaa Hojii",
     insights: "Yaadannoo",
     testimonials: "Jecha Maamiltootaa",
     discretion: "Icciitii",
     careers: "Carraa Hojii",
     contact: "Nu Qunnamaa",
+    privacy: "Eebbaa Icciitii",
+    terms: "Haala Itti Gaafatamuu",
     requestConsultation: "Gorsa gaafadhaa",
     menu: "Baafata",
     close: "Cufi",
@@ -72,14 +73,14 @@ export const om: Dict = {
         line: "Hojiin mataan isaa — of eeggannoodhaan, maqaa malee himame.",
       },
       {
-        href: "/presence",
-        title: "Argama",
-        line: "Addunyaa lama, sadarkaa tokko: lafa Itoophiyaa, safartuu addunyaa.",
-      },
-      {
         href: "/insights",
         title: "Yaadannoo",
         line: "Muuxannoo hojii irraa barreeffaman — maamiltootaaf malee ogeeyyii seeraatiif miti.",
+      },
+      {
+        href: "/discretion",
+        title: "Icciitii",
+        line: "Waan hin dubbisnu sakni tajaajila ti.",
       },
       {
         href: "/contact",
@@ -461,40 +462,6 @@ export const om: Dict = {
           ["Falmii", "Hin jiru"],
         ],
       },
-    ],
-  },
-  presence: {
-    kicker: "Boqonnaa V · Argama",
-    title: "Addunyaa lama. Sadarkaa tokko.",
-    lede: "Finfinneen bakka Afriikaan itti mari'attudha: teessoo Gamtaa Afriikaa, keessummeessituu hawaasa dippilomaasii addunyaa keessaa isa baay'ee walitti dhiyaatu. Dhaabbanni asitti seeraan hojjetu dandeettii lama yeroo tokkotti qabachuu qaba. Nuti lamaanuu qabna — hir'ina malees ni hiikna.",
-    blocks: [
-      {
-        title: "Lafa Itoophiyaa",
-        text: "Manneen murtii federaalaatii fi naannoo, ministeerotaa fi to'attoota, haala hojii dhugaa afaanota hojii sadiin. Itoophiyaa keessummootaaf hin gabaabsinu; ishee keessa hojjenna.",
-      },
-      {
-        title: "Safartuu addunyaa",
-        text: "Beekamtii WIPO, gurgurtaawwan caasaa Baankii Addunyaa jalatti, jaarsummaa biyya alaatti taa'an, xalayaa guyyaa guyyaa gorsitoota alaa wajjin. Ingiliffi barreeffama keenyaa sadarkaa dhaabbilee isaan wajjin hojjennuutiin madaalama.",
-      },
-      {
-        title: "Riqicha",
-        text: "Maamiltoota alaatiif dubbisa haqa Itoophiyaa barreeffamni biyya alaa kennuu hin dandeenyedha. Maamiltoota Itoophiyaatiif immoo sadarkaalee addunyaa araarsaa alaa malee. Riqichi kallattii lamaanuu fiiga.",
-      },
-    ],
-    affiliationsTitle: "Galmee irra",
-    affiliations: [
-      "Dhaabbata Qabeenya Sammuu Addunyaa (WIPO) duratti beekamtii",
-      "Gurgurtaawwan caasaa faayinaansii kaarboonii Baankii Addunyaa jalatti gorsaa",
-      "Bara 1990 irraa eegalee Manneen Murtii Federaalaa Itoophiyaa duratti ogummaa",
-      "Labsii Lak. 1249/2021 jalatti WHM ta'ee caaseffame",
-    ],
-    languagesTitle: "Afaanota hojii",
-    languages: ["Afaan Amaaraa", "Ingiliffaa", "Afaan Oromoo"],
-    jurisdictionsTitle: "Bakka hojiin itti fiigu",
-    jurisdictions: [
-      "Itoophiyaa — daangaa federaalaatii fi naannolee",
-      "Jaarsummaa addunyaa — teessoo alaa, seera Itoophiyaa",
-      "Dhimmoota daangaa-qaxxaamuraa — gorsitoota alaa wajjin qindaa'anii",
     ],
   },
   insights: {
