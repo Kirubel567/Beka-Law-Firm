@@ -40,7 +40,6 @@ export default function Header({ locale, dict }: { locale: Locale; dict: Dict })
     { href: `/${locale}/people`, label: dict.nav.people },
     { href: `/${locale}/practice`, label: dict.nav.practice },
     { href: `/${locale}/matters`, label: dict.nav.matters },
-    { href: `/${locale}/presence`, label: dict.nav.presence },
     { href: `/${locale}/insights`, label: dict.nav.insights },
   ];
 
@@ -62,17 +61,17 @@ export default function Header({ locale, dict }: { locale: Locale; dict: Dict })
           : "bg-gradient-to-b from-basalt-950/80 to-transparent"
       }`}
     >
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 md:px-8">
-        <Link href={`/${locale}`} aria-label={dict.common.firmFull} className="text-parchment-100">
+      <div className="mx-auto flex h-20 max-w-[90rem] items-center justify-between gap-6 px-5 md:px-8">
+        <Link href={`/${locale}`} aria-label={dict.common.firmFull} className="shrink-0 text-parchment-100">
           <Wordmark />
         </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
+        <nav className="hidden min-w-0 items-center justify-end gap-5 xl:flex xl:gap-7" aria-label="Primary">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className={`link-quiet text-[0.8rem] tracking-[0.08em] ${
+              className={`link-quiet whitespace-nowrap text-[0.8rem] tracking-[0.08em] ${
                 isActive(l.href) ? "text-brass-300" : "text-parchment-200/90 hover:text-parchment-50"
               }`}
             >
@@ -83,7 +82,7 @@ export default function Header({ locale, dict }: { locale: Locale; dict: Dict })
           <LangSwitch locale={locale} rest={rest} />
           <Link
             href={`/${locale}/contact`}
-            className="gold-sheen-border border px-4 py-2 text-[0.72rem] tracking-[0.18em] text-brass-300 uppercase transition-colors duration-500 hover:bg-brass-400/10"
+            className="gold-sheen-border whitespace-nowrap border px-4 py-2 text-[0.72rem] tracking-[0.18em] text-brass-300 uppercase transition-colors duration-500 hover:bg-brass-400/10"
           >
             {dict.nav.requestConsultation}
           </Link>
@@ -92,7 +91,7 @@ export default function Header({ locale, dict }: { locale: Locale; dict: Dict })
         <button
           type="button"
           onClick={() => setOpen(!open)}
-          className="-mr-2 flex h-11 w-11 items-center justify-center text-parchment-100 lg:hidden"
+          className="-mr-2 flex h-11 w-11 items-center justify-center text-parchment-100 xl:hidden"
           aria-expanded={open}
           aria-label={open ? dict.nav.close : dict.nav.menu}
         >
@@ -117,7 +116,7 @@ export default function Header({ locale, dict }: { locale: Locale; dict: Dict })
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: settle }}
-            className="basalt-relief fixed inset-x-0 top-20 bottom-0 z-40 overflow-y-auto text-parchment-100 lg:hidden"
+            className="basalt-relief fixed inset-x-0 top-20 bottom-0 z-40 overflow-y-auto text-parchment-100 xl:hidden"
           >
             <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-5 py-10" aria-label="Mobile">
               {[...links, ...secondary].map((l, i) => (

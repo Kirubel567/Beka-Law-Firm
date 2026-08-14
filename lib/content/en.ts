@@ -23,7 +23,7 @@ export const en: Dict = {
     menu: "Menu",
     close: "Close",
   },
-  chapters: ["I", "II", "III", "IV", "V", "VI", "VII"],
+  chapters: ["I", "II", "III", "IV", "V", "VI"],
   common: {
     firmShort: "BEKA",
     firmFull: "Belay Ketema & Partners LLP",
@@ -72,11 +72,6 @@ export const en: Dict = {
         line: "The work itself — told carefully, and without names.",
       },
       {
-        href: "/presence",
-        title: "Presence",
-        line: "Two worlds, one standard: Ethiopian ground, international register.",
-      },
-      {
         href: "/insights",
         title: "Insights",
         line: "Notes from practice, written for clients rather than colleagues.",
@@ -121,7 +116,7 @@ export const en: Dict = {
     discretionText:
       "Confidentiality at this firm is not a policy page; it is the operating principle that decides how files are staffed, stored, and spoken about. We keep a page on it — not to persuade you, but so you know exactly what to expect.",
     discretionLink: "Read the discretion page",
-    contactKicker: "Chapter VII · Correspondence",
+    contactKicker: "Chapter VI · Correspondence",
     contactTitle: "Begin quietly.",
     contactText:
       "Write briefly, in the language you prefer. Your inquiry is read by a partner — not routed through a call centre — and answered within two business days.",
@@ -498,7 +493,7 @@ export const en: Dict = {
     ],
   },
   insights: {
-    kicker: "Chapter VI · Insights",
+    kicker: "Chapter V · Insights",
     title: "Notes from practice.",
     lede: "Written for the people who make decisions, not for other lawyers. Short enough to read, careful enough to rely on as a starting point — though never as advice.",
     readArticle: "Read the note",
