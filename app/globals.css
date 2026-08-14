@@ -150,7 +150,7 @@
    The public site keeps its single editorial palette by design; only the
    portal (its own root layout sets data-theme) swaps these surfaces. */
 html[data-theme="dark"] {
-  --p-bg: #9d2e34;
+  --p-bg: #12100d;
   --p-panel: #b2383f;
   --p-hover: #c44f55;
   --p-input: #9d2e34;
