@@ -224,8 +224,8 @@ export const en: Dict = {
     contextLabel: "National milestone",
   },
   people: {
-    kicker: "Chapter II · People",
-    title: "Custodians, not headshots.",
+    kicker: "Chapter II · Our People",
+    title: "Custodians",
     lede: "A firm is the people who answer for it. Ours are presented here the way they present themselves: by what they hold in custody.",
     custodyLabel: "In custody",
     languagesLabel: "Languages",
@@ -269,13 +269,13 @@ export const en: Dict = {
       },
     ],
     directoryNote:
-      "Profiles of our counsel and associates are provided to clients on engagement. We publish less about our people than most firms do; they prefer it that way, and so do the clients they serve.",
+      "Profiles of our counsel and associates are provided to clients on engagement. ",
     readProfile: "Read profile",
   },
   practice: {
     kicker: "Chapter III · Practice",
-    title: "Nine disciplines. One habit of mind.",
-    lede: "Practice areas are how law firms sort themselves. Clients bring whole problems. We describe the disciplines below plainly — and staff the problem, not the department.",
+    title: "Nine disciplines. One habit ",
+    lede: "Practice areas are how law firms sort themselves. Clients bring whole problems. We describe the disciplines below plainly",
     representativeLabel: "Representative work",
     areas: [
       {
