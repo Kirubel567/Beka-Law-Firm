@@ -11,6 +11,25 @@ const MAX_BODY_BYTES = 16 * 1024;
 const MAX_REQUESTS = 20;
 const WINDOW_MS = 10 * 60 * 1000;
 
+const localFallback = {
+  en: "You can explore BEKA's Practice Areas, People, Case Studies, and Insights from the main navigation. For advice about a specific matter, use Contact the firm; a partner reviews every inquiry. This assistant provides general information only and does not give legal advice.",
+  am: "የበካን የሥራ መስኮች፣ ባለሙያዎች፣ የጉዳይ ጥናቶች እና ማስታወሻዎች ከዋናው ማውጫ ማሰስ ይችላሉ። ስለተወሰነ ጉዳይ ምክር ለማግኘት “ድርጅቱን ያነጋግሩ” የሚለውን ይጠቀሙ፤ እያንዳንዱን ጥያቄ አጋር ይመለከታል። ይህ ረዳት አጠቃላይ መረጃ ብቻ ይሰጣል፤ የሕግ ምክር አይሰጥም።",
+  om: "Dameewwan Hojii, Namoota, Qo'annoo Dhimmootaa fi Yaadannoo BEKA baafata ijoo irraa ilaalu dandeessu. Dhimma addaa irratti gorsa argachuuf ‘Dhaabbaticha qunnami’ fayyadami; gaaffii hunda michuun ilaala. Gargaaraan kun odeeffannoo waliigalaa qofa kenna; gorsa seeraa miti.",
+} as const;
+
+function fallbackResponse(locale: keyof typeof localFallback): Response {
+  const body = `event: token\ndata: ${JSON.stringify({ text: localFallback[locale] })}\n\n`;
+  return new Response(body, {
+    status: 200,
+    headers: {
+      "Content-Type": "text/event-stream; charset=utf-8",
+      "Cache-Control": "no-store, no-transform",
+      "X-Accel-Buffering": "no",
+      "X-Beka-Assistant-Mode": "local-fallback",
+    },
+  });
+}
+
 function validHistory(value: unknown): value is AssistantHistoryMessage[] {
   return (
     Array.isArray(value) &&
@@ -74,7 +93,7 @@ export async function POST(req: Request) {
     });
     if (!upstream.ok || !upstream.body) {
       console.error("RAG assistant upstream failed", upstream.status);
-      return NextResponse.json({ error: "The assistant is temporarily unavailable." }, { status: 502 });
+      return fallbackResponse(body.locale);
     }
     return new Response(upstream.body, {
       status: 200,
@@ -86,6 +105,6 @@ export async function POST(req: Request) {
     });
   } catch (error) {
     console.error("RAG assistant gateway error", error instanceof Error ? error.message : error);
-    return NextResponse.json({ error: "The assistant is temporarily unavailable." }, { status: 503 });
+    return fallbackResponse(body.locale);
   }
 }
