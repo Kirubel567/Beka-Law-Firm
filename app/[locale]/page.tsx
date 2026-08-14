@@ -80,7 +80,7 @@ export default async function HomePage({
       <section className="basalt-relief py-24 text-parchment-100 md:py-32">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <Reveal>
-            <p className="label-caps text-brass-400">{dict.home.practiceKicker}</p>
+            <p className="label-caps text-crimson-300">{dict.home.practiceKicker}</p>
             <h2 className="mt-5 font-display text-4xl leading-tight font-medium text-parchment-50 md:text-5xl">
               {dict.home.practiceTitle}
             </h2>
@@ -99,7 +99,7 @@ export default async function HomePage({
                   <h3 className="font-display text-2xl font-medium text-parchment-100 transition-colors duration-500 group-hover:text-brass-300">
                     {area.name}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-parchment-200/65">{area.oneLine}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-parchment-200/82">{area.oneLine}</p>
                 </Link>
               </Reveal>
             ))}
@@ -108,7 +108,7 @@ export default async function HomePage({
           <Reveal delay={0.2} className="mt-12">
             <Link
               href={`/${loc}/practice`}
-              className="link-quiet label-caps text-brass-300"
+              className="link-quiet label-caps text-crimson-300"
             >
               {dict.home.viewAllPractice} →
             </Link>
@@ -202,7 +202,7 @@ export default async function HomePage({
         <div className="mx-auto max-w-4xl px-5 text-center md:px-8">
           <Reveal>
             <ThreadDivider className="mx-auto mb-10 h-6 w-64 text-brass-500/60" />
-            <p className="label-caps text-brass-400">{dict.home.discretionKicker}</p>
+            <p className="label-caps text-crimson-300">{dict.home.discretionKicker}</p>
             <h2 className="mt-5 font-display text-3xl leading-tight font-medium text-parchment-50 md:text-4xl">
               {dict.home.discretionTitle}
             </h2>
@@ -211,7 +211,7 @@ export default async function HomePage({
             </p>
             <Link
               href={`/${loc}/discretion`}
-              className="link-quiet label-caps mt-9 inline-block text-brass-300"
+              className="link-quiet label-caps mt-9 inline-block text-crimson-300"
             >
               {dict.home.discretionLink} →
             </Link>
@@ -232,7 +232,7 @@ export default async function HomePage({
             </p>
             <Link
               href={`/${loc}/contact`}
-              className="mt-10 inline-block border border-basalt-800 px-9 py-4 text-[0.72rem] tracking-[0.22em] text-basalt-900 uppercase transition-all duration-700 hover:bg-basalt-900 hover:text-parchment-100"
+              className="mt-10 inline-block border border-crimson-600 px-9 py-4 text-[0.75rem] tracking-[0.18em] text-crimson-700 uppercase transition-all duration-500 hover:bg-crimson-600 hover:text-parchment-50"
             >
               {dict.home.contactCta}
             </Link>

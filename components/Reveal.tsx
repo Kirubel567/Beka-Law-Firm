@@ -8,7 +8,7 @@ const settle = [0.22, 1, 0.36, 1] as const;
 export default function Reveal({
   children,
   delay = 0,
-  y = 28,
+  y = 20,
   className,
   as = "div",
 }: {
@@ -24,7 +24,7 @@ export default function Reveal({
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-72px" }}
-      transition={{ duration: 1, delay, ease: settle }}
+      transition={{ duration: 0.72, delay: Math.min(delay, 0.2), ease: settle }}
       className={className}
     >
       {children}

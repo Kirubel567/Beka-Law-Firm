@@ -45,7 +45,7 @@ export default function ContactForm({ dict }: { dict: Dict }) {
   };
 
   const field =
-    "w-full border-b border-basalt-600/30 bg-transparent py-3 text-basalt-900 placeholder:text-ink-500/40 focus:border-brass-500 focus:outline-none transition-colors duration-500";
+    "w-full border-b border-basalt-600/35 bg-transparent py-3 text-basalt-900 placeholder:text-ink-500/55 focus:border-crimson-500 focus:outline-none transition-colors duration-400";
   const label = "label-caps block text-ink-500/80 mb-1";
 
   return (
@@ -127,7 +127,7 @@ export default function ContactForm({ dict }: { dict: Dict }) {
             <button
               type="submit"
               disabled={phase === "sending"}
-              className="group relative inline-flex items-center gap-4 border border-basalt-800 px-8 py-4 text-[0.72rem] tracking-[0.22em] text-basalt-900 uppercase transition-all duration-700 hover:bg-basalt-900 hover:text-parchment-100 disabled:opacity-60"
+              className="group relative inline-flex items-center gap-4 border border-crimson-600 px-8 py-4 text-[0.75rem] tracking-[0.18em] text-crimson-700 uppercase transition-all duration-500 hover:bg-crimson-600 hover:text-parchment-50 disabled:opacity-60"
             >
               {phase === "sending" ? f.sending : f.submit}
               <span className="block h-px w-8 bg-current transition-all duration-700 group-hover:w-12" aria-hidden="true" />
@@ -139,7 +139,7 @@ export default function ContactForm({ dict }: { dict: Dict }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, ease: settle }}
-            className="border border-brass-500/40 bg-parchment-50 px-8 py-14 text-center md:px-16"
+            className="border border-crimson-500/35 bg-parchment-50 px-8 py-14 text-center md:px-16"
             role="status"
           >
             <DrawnSeal />
@@ -152,7 +152,7 @@ export default function ContactForm({ dict }: { dict: Dict }) {
             <button
               type="button"
               onClick={() => setPhase("idle")}
-              className="link-quiet mt-8 text-[0.72rem] tracking-[0.2em] text-brass-600 uppercase"
+              className="link-quiet mt-8 text-[0.75rem] tracking-[0.18em] text-crimson-600 uppercase"
             >
               {dict.contact.confirmation.again}
             </button>
@@ -170,7 +170,7 @@ function DrawnSeal() {
     transition: { duration: 1.6, delay, ease: settle },
   });
   return (
-    <svg viewBox="0 0 96 96" fill="none" className="mx-auto h-24 w-24 text-brass-500" aria-hidden="true">
+    <svg viewBox="0 0 96 96" fill="none" className="mx-auto h-24 w-24 text-crimson-500" aria-hidden="true">
       <motion.circle cx="48" cy="48" r="45" stroke="currentColor" strokeWidth="1" {...drawn(0)} />
       <motion.rect
         x="30"

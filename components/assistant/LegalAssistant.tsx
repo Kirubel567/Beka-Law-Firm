@@ -216,34 +216,34 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
   };
 
   return (
-    <div className="fixed right-4 bottom-4 z-[60] md:right-7 md:bottom-7" lang={locale}>
+    <div className="fixed right-4 bottom-4 z-[35] md:right-7 md:bottom-7" lang={locale}>
       {open && (
         <section
           role="dialog"
           aria-label={t.title}
-          className="mb-3 flex h-[min(650px,calc(100svh-7rem))] w-[min(390px,calc(100vw-2rem))] flex-col overflow-hidden border border-[#1E222A]/20 bg-[#F2EFE8] text-[#1E222A] shadow-[0_24px_70px_rgba(18,16,13,0.3)]"
+          className="mb-3 flex h-[min(650px,calc(100svh-7rem))] w-[min(390px,calc(100vw-2rem))] flex-col overflow-hidden rounded-sm border border-(--assistant-border) bg-(--assistant-paper) text-(--assistant-ink) shadow-[0_24px_70px_rgba(20,17,18,0.24)]"
         >
-          <header className="flex items-start justify-between gap-4 border-b border-[#1E222A]/15 bg-[#1E222A] px-5 py-4 text-[#F2EFE8]">
+          <header className="flex items-start justify-between gap-4 border-t-2 border-t-crimson-500 border-b border-parchment-100/12 bg-basalt-950 px-5 py-4 text-parchment-100">
             <div>
               <p className="font-display text-xl font-medium">{t.title}</p>
-              <p className="mt-1 text-[0.68rem] leading-snug text-[#F2EFE8]/65">{t.subtitle}</p>
+              <p className="mt-1 text-[0.72rem] leading-snug text-parchment-200/78">{t.subtitle}</p>
             </div>
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="flex h-9 w-9 shrink-0 items-center justify-center border border-[#F2EFE8]/20 text-xl hover:border-[#F2EFE8]/60"
+              className="flex h-10 w-10 shrink-0 items-center justify-center border border-parchment-100/25 text-xl transition-colors hover:border-crimson-300 hover:text-crimson-300"
               aria-label={t.close}
             >
               ×
             </button>
           </header>
 
-          <p className="border-b border-[#9C2A32]/20 bg-[#9C2A32]/6 px-5 py-3 text-[0.67rem] leading-relaxed text-[#1E222A]/75">
+          <p className="border-b border-crimson-500/20 bg-(--assistant-brand-soft) px-5 py-3 text-[0.72rem] leading-relaxed text-ink-700/80">
             {t.notice}
           </p>
 
           <div className="flex-1 space-y-4 overflow-y-auto px-4 py-5" aria-live="polite">
-            <div className="max-w-[88%] border-l-2 border-[#9C2A32] bg-white/65 px-4 py-3 text-sm leading-relaxed">
+            <div className="max-w-[88%] border-l-2 border-crimson-500 bg-(--assistant-panel) px-4 py-3 text-sm leading-relaxed shadow-[0_1px_0_rgba(48,42,41,0.08)]">
               {t.welcome}
             </div>
             {messages.length === 0 && (
@@ -253,7 +253,7 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
                     key={prompt}
                     type="button"
                     onClick={() => void submit(prompt)}
-                    className="border border-[#1E222A]/20 bg-transparent px-3 py-2 text-left text-xs leading-snug hover:border-[#9C2A32] hover:text-[#9C2A32]"
+                    className="border border-(--assistant-border) bg-transparent px-3 py-2.5 text-left text-xs leading-snug transition-colors hover:border-crimson-500 hover:bg-crimson-500/5 hover:text-crimson-700"
                   >
                     {prompt}
                   </button>
@@ -265,13 +265,13 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
                 key={message.id}
                 className={`text-sm leading-relaxed ${
                   message.role === "user"
-                    ? "ml-auto max-w-[86%] bg-[#1E222A] px-4 py-3 text-[#F2EFE8]"
-                    : "max-w-[94%] border-l-2 border-[#9C2A32] bg-white/65 px-4 py-3"
+                    ? "ml-auto max-w-[86%] bg-basalt-900 px-4 py-3 text-parchment-100"
+                    : "max-w-[94%] border-l-2 border-crimson-500 bg-(--assistant-panel) px-4 py-3 shadow-[0_1px_0_rgba(48,42,41,0.08)]"
                 }`}
               >
                 <p className="whitespace-pre-wrap">{message.text || (busy ? t.sending : "")}</p>
                 {message.citations.length > 0 && (
-                  <div className="mt-4 border-t border-[#1E222A]/12 pt-3">
+                  <div className="mt-4 border-t border-ink-700/12 pt-3">
                     <p className="text-[0.62rem] font-medium tracking-[0.16em] uppercase">{t.sources}</p>
                     <ol className="mt-2 space-y-1.5 text-[0.7rem] leading-snug">
                       {message.citations.map((citation) => (
@@ -282,7 +282,7 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
                               href={citation.url}
                               target="_blank"
                               rel="noreferrer"
-                              className="underline decoration-[#9C2A32]/50 underline-offset-2 hover:text-[#9C2A32]"
+                              className="underline decoration-crimson-500/50 underline-offset-2 hover:text-crimson-600"
                             >
                               {citation.title}
                             </a>
@@ -296,12 +296,12 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
                   </div>
                 )}
                 {message.role === "assistant" && message.responseId && !message.failed && (
-                  <div className="mt-3 flex gap-3 text-[0.65rem] text-[#1E222A]/60">
+                  <div className="mt-3 flex gap-3 text-[0.7rem] text-ink-500">
                     <button
                       type="button"
                       disabled={message.rated !== undefined}
                       onClick={() => void rate(message.id, message.responseId!, 1)}
-                      className={message.rated === 1 ? "text-[#9C2A32]" : "hover:text-[#9C2A32]"}
+                      className={message.rated === 1 ? "text-crimson-600" : "hover:text-crimson-600"}
                     >
                       + {t.helpful}
                     </button>
@@ -309,7 +309,7 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
                       type="button"
                       disabled={message.rated !== undefined}
                       onClick={() => void rate(message.id, message.responseId!, -1)}
-                      className={message.rated === -1 ? "text-[#9C2A32]" : "hover:text-[#9C2A32]"}
+                      className={message.rated === -1 ? "text-crimson-600" : "hover:text-crimson-600"}
                     >
                       − {t.notHelpful}
                     </button>
@@ -317,7 +317,7 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
                 )}
               </article>
             ))}
-            {busy && <p className="text-xs text-[#1E222A]/55">{t.sending}</p>}
+            {busy && <p className="text-xs text-ink-500">{t.sending}</p>}
           </div>
 
           <form
@@ -325,7 +325,7 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
               event.preventDefault();
               void submit();
             }}
-            className="border-t border-[#1E222A]/15 bg-[#F2EFE8] p-3"
+            className="border-t border-(--assistant-border) bg-(--assistant-paper) p-3"
           >
             <label className="sr-only" htmlFor="beka-assistant-question">{t.placeholder}</label>
             <textarea
@@ -342,16 +342,16 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
                 }
               }}
               placeholder={t.placeholder}
-              className="w-full resize-none border border-[#1E222A]/20 bg-white/70 px-3 py-2.5 text-sm outline-none placeholder:text-[#1E222A]/40 focus:border-[#9C2A32]"
+              className="w-full resize-none border border-(--assistant-border) bg-(--assistant-panel) px-3 py-2.5 text-sm outline-none placeholder:text-ink-500/65 focus:border-crimson-500"
             />
             <div className="mt-2 flex items-center justify-between gap-4">
-              <Link href={`/${locale}/contact`} className="text-[0.65rem] underline underline-offset-2 hover:text-[#9C2A32]">
+              <Link href={`/${locale}/contact`} className="text-[0.7rem] underline decoration-crimson-500/45 underline-offset-2 hover:text-crimson-600">
                 {t.contact}
               </Link>
               <button
                 type="submit"
                 disabled={busy || input.trim().length < 2 || !sessionId}
-                className="bg-[#9C2A32] px-5 py-2 text-xs tracking-[0.12em] text-white uppercase disabled:cursor-not-allowed disabled:opacity-45"
+                className="bg-crimson-500 px-5 py-2.5 text-xs tracking-[0.12em] text-white uppercase transition-colors hover:bg-crimson-600 disabled:cursor-not-allowed disabled:opacity-45"
               >
                 {t.send}
               </button>
@@ -364,7 +364,7 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
         type="button"
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
-        className="ml-auto flex min-h-12 items-center gap-3 border border-[#F2EFE8]/35 bg-[#9C2A32] px-5 py-3 text-sm font-medium tracking-[0.06em] text-white shadow-[0_12px_35px_rgba(18,16,13,0.26)] hover:bg-[#84232a]"
+        className="ml-auto flex min-h-12 items-center gap-3 rounded-sm border border-parchment-100/35 bg-crimson-500 px-5 py-3 text-sm font-medium tracking-[0.06em] text-white shadow-[0_12px_30px_rgba(20,17,18,0.22)] transition-colors hover:bg-crimson-600"
       >
         <span aria-hidden="true" className="text-lg">◌</span>
         {t.launcher}

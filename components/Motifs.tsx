@@ -64,7 +64,7 @@ export function Wordmark({ className = "" }: { className?: string }) {
       <BekaMark className="h-9 w-auto shrink-0" />
       <span className="flex flex-col leading-none">
         <span className="font-display text-[1.35rem] font-medium tracking-[0.18em]">BEKA</span>
-        <span className="label-caps mt-1 text-[0.55rem] opacity-70">Belay Ketema &amp; Partners LLP</span>
+        <span className="label-caps mt-1 text-[0.6rem] text-parchment-200/80">Belay Ketema &amp; Partners LLP</span>
       </span>
     </span>
   );

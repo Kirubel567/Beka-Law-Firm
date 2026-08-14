@@ -58,8 +58,8 @@ export default function Header({ locale, dict }: { locale: Locale; dict: Dict })
     <header
       className={`fixed inset-x-0 top-0 z-50 text-parchment-100 transition-all duration-700 ${
         scrolled || open
-          ? "bg-basalt-950/95 shadow-[0_1px_0_0_rgba(240,214,122,0.18)] backdrop-blur-sm"
-          : "bg-gradient-to-b from-basalt-950/80 to-transparent"
+          ? "bg-basalt-950/97 shadow-[0_1px_0_0_rgba(157,46,52,0.42)] backdrop-blur-md"
+          : "bg-gradient-to-b from-basalt-950/90 via-basalt-950/45 to-transparent"
       }`}
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 md:px-8">
@@ -73,7 +73,7 @@ export default function Header({ locale, dict }: { locale: Locale; dict: Dict })
               key={l.href}
               href={l.href}
               className={`link-quiet text-[0.8rem] tracking-[0.08em] ${
-                isActive(l.href) ? "text-brass-300" : "text-parchment-200/90 hover:text-parchment-50"
+                isActive(l.href) ? "text-crimson-300" : "text-parchment-200/90 hover:text-parchment-50"
               }`}
             >
               {l.label}
@@ -83,7 +83,7 @@ export default function Header({ locale, dict }: { locale: Locale; dict: Dict })
           <LangSwitch locale={locale} rest={rest} />
           <Link
             href={`/${locale}/contact`}
-            className="gold-sheen-border border px-4 py-2 text-[0.72rem] tracking-[0.18em] text-brass-300 uppercase transition-colors duration-500 hover:bg-brass-400/10"
+            className="gold-sheen-border border bg-crimson-500/10 px-4 py-2 text-[0.75rem] tracking-[0.16em] text-parchment-50 uppercase transition-colors duration-500 hover:bg-crimson-500/22"
           >
             {dict.nav.requestConsultation}
           </Link>
@@ -130,7 +130,7 @@ export default function Header({ locale, dict }: { locale: Locale; dict: Dict })
                   <Link
                     href={l.href}
                     className={`block border-b border-parchment-100/10 py-4 font-display text-2xl ${
-                      isActive(l.href) ? "text-brass-300" : "text-parchment-100"
+                      isActive(l.href) ? "text-crimson-300" : "text-parchment-100"
                     }`}
                   >
                     {l.label}
@@ -167,7 +167,7 @@ function LangSwitch({
           aria-label={localeNames[l]}
           aria-current={l === locale ? "true" : undefined}
           className={`${large ? "text-base" : "text-[0.72rem]"} tracking-[0.12em] uppercase transition-colors duration-400 ${
-            l === locale ? "text-brass-300" : "text-parchment-200/60 hover:text-parchment-100"
+            l === locale ? "text-crimson-300" : "text-parchment-200/75 hover:text-parchment-100"
           }`}
         >
           {l === "om" ? "OR" : l.toUpperCase()}

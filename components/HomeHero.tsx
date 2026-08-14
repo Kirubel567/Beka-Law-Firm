@@ -8,9 +8,9 @@ import type { Dict, Locale } from "@/lib/content/types";
 const settle = [0.22, 1, 0.36, 1] as const;
 
 const rise = (delay: number) => ({
-  initial: { opacity: 0, y: 32 },
+  initial: { opacity: 0, y: 22 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 1.2, delay, ease: settle },
+  transition: { duration: 0.86, delay: Math.min(delay * 0.62, 0.78), ease: settle },
 });
 
 /**
@@ -56,19 +56,19 @@ export default function HomeHero({
               src={src}
               alt=""
               className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1500ms] ease-in-out ${
-                i === index ? "opacity-40" : "opacity-0"
+                i === index ? "opacity-32" : "opacity-0"
               }`}
             />
           ))}
           {/* basalt overlay — unchanged treatment, keeps the image behind glass */}
-          <div className="absolute inset-0 bg-gradient-to-t from-basalt-950 via-basalt-950/75 to-basalt-950/55" />
+          <div className="absolute inset-0 bg-gradient-to-t from-basalt-950 via-basalt-950/82 to-basalt-950/62" />
           {/* left edge dissolves into the basalt so the 75% panel has no hard seam */}
           <div className="absolute inset-0 bg-gradient-to-r from-basalt-950 via-basalt-950/20 to-transparent" />
         </motion.div>
       )}
 
       <div className="relative mx-auto w-full max-w-7xl px-5 pt-44 pb-16 md:px-8 md:pb-24">
-        <motion.p {...rise(0.2)} className="label-caps text-brass-400">
+        <motion.p {...rise(0.2)} className="label-caps text-crimson-300">
           {dict.home.kicker}
         </motion.p>
 
@@ -97,7 +97,7 @@ export default function HomeHero({
         >
           {dict.home.ledger.map(([term, value]) => (
             <div key={term}>
-              <dt className="label-caps text-parchment-200/50">{term}</dt>
+              <dt className="label-caps text-parchment-200/68">{term}</dt>
               <dd className="mt-2 text-sm leading-snug text-parchment-100/90">{value}</dd>
             </div>
           ))}
@@ -109,11 +109,11 @@ export default function HomeHero({
         >
           <Link
             href={`/${locale}/contact`}
-            className="gold-sheen-border border px-7 py-4 text-[0.72rem] tracking-[0.22em] text-brass-300 uppercase transition-colors duration-700 hover:bg-brass-400/10"
+            className="gold-sheen-border border bg-crimson-500/10 px-7 py-4 text-[0.75rem] tracking-[0.18em] text-parchment-50 uppercase transition-colors duration-500 hover:bg-crimson-500/24"
           >
             {dict.nav.requestConsultation}
           </Link>
-          <span className="label-caps hidden text-parchment-200/40 md:block">
+          <span className="label-caps hidden text-parchment-200/65 md:block">
             {dict.home.scrollHint}
           </span>
         </motion.div>
@@ -123,8 +123,8 @@ export default function HomeHero({
       <motion.div
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 1 }}
-        transition={{ duration: 1.6, delay: 1.6, ease: settle }}
-        className="relative mx-auto h-20 w-px origin-top bg-brass-400/70"
+        transition={{ duration: 1.1, delay: 1, ease: settle }}
+        className="relative mx-auto h-20 w-px origin-top bg-gradient-to-b from-crimson-400 via-brass-400 to-transparent"
         aria-hidden="true"
       />
     </section>

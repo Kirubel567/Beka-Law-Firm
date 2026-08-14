@@ -1,29 +1,37 @@
 @import "tailwindcss";
 
 @theme {
-  /* Material palette — basalt, parchment, brass, terracotta */
-  --color-basalt-950: #12100d;
-  --color-basalt-900: #17140f;
-  --color-basalt-800: #211d16;
-  --color-basalt-700: #2e2920;
-  --color-basalt-600: #443d31;
+  /* Calm charcoal surfaces with a subtle warm/red undertone. Large areas stay
+     neutral; the logo crimson is reserved for identity and interaction. */
+  --color-basalt-950: #141112;
+  --color-basalt-900: #1b1718;
+  --color-basalt-800: #262021;
+  --color-basalt-700: #352c2d;
+  --color-basalt-600: #4b3e3f;
 
-  --color-parchment-50: #faf7f0;
-  --color-parchment-100: #f4efe3;
-  --color-parchment-200: #eae2d0;
-  --color-parchment-300: #d9cdb4;
+  --color-parchment-50: #fbf9f4;
+  --color-parchment-100: #f5f1e8;
+  --color-parchment-200: #e9e1d3;
+  --color-parchment-300: #d8cdbb;
 
-  /* Shinier, more luminous gold (leaf-gold highlights, warm metal mids) */
-  --color-brass-300: #f0d67a;
-  --color-brass-400: #e0bd5a;
-  --color-brass-500: #c99a34;
-  --color-brass-600: #9a7628;
+  /* The exact logo red anchors the brand without becoming a full-page ground. */
+  --color-crimson-300: #dda1a5;
+  --color-crimson-400: #c9686f;
+  --color-crimson-500: #9d2e34;
+  --color-crimson-600: #84262c;
+  --color-crimson-700: #681d22;
+
+  /* Muted brass supports the crimson instead of competing with it. */
+  --color-brass-300: #ead79a;
+  --color-brass-400: #d6bb70;
+  --color-brass-500: #b58d45;
+  --color-brass-600: #876a35;
 
   --color-terracotta-500: #a65e3f;
   --color-terracotta-600: #8f4d32;
 
-  --color-ink-500: #4c463b;
-  --color-ink-700: #2e2a22;
+  --color-ink-500: #59504b;
+  --color-ink-700: #302a29;
 
   /* Weight-settling easing — stone and metal, not rubber */
   --ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
@@ -41,6 +49,13 @@
 @layer base {
   :root {
     color-scheme: light;
+    --assistant-ink: #211b1c;
+    --assistant-paper: #f7f2e9;
+    --assistant-panel: #fffdf8;
+    --assistant-brand: #9d2e34;
+    --assistant-brand-hover: #84262c;
+    --assistant-brand-soft: rgba(157, 46, 52, 0.08);
+    --assistant-border: rgba(48, 42, 41, 0.18);
   }
 
   html {
@@ -49,17 +64,18 @@
 
   body {
     background-color: var(--color-parchment-100);
-    /* undulating hairline texture — the whole site sits on quiet wave lines */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='7'%3E%3Cpath d='M0 3.5 Q10 1 20 3.5 T40 3.5' fill='none' stroke='%232e2a22' stroke-opacity='0.06' stroke-width='1'/%3E%3C/svg%3E");
+    /* A wider, fainter line rhythm keeps the paper tactile without screen noise. */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='12'%3E%3Cpath d='M0 6 Q12 3.5 24 6 T48 6' fill='none' stroke='%23302a29' stroke-opacity='0.035' stroke-width='0.8'/%3E%3C/svg%3E");
     color: var(--color-ink-700);
     font-family: var(--font-body);
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
   ::selection {
-    background: var(--color-brass-400);
-    color: var(--color-basalt-950);
+    background: var(--color-crimson-500);
+    color: var(--color-parchment-50);
   }
 }
 
@@ -78,7 +94,7 @@
 /* Parchment (white) sections carry the wave lines as a true element background —
    it sits beneath all content and cards, and only on the light surfaces. */
 .grain {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='7'%3E%3Cpath d='M0 3.5 Q10 1 20 3.5 T40 3.5' fill='none' stroke='%232e2a22' stroke-opacity='0.06' stroke-width='1'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='12'%3E%3Cpath d='M0 6 Q12 3.5 24 6 T48 6' fill='none' stroke='%23302a29' stroke-opacity='0.035' stroke-width='0.8'/%3E%3C/svg%3E");
 }
 
 /* Basalt relief for dark sections — no line texture here; the dark grounds
@@ -86,21 +102,21 @@
 .basalt-relief {
   background-color: var(--color-basalt-900);
   background-image:
-    radial-gradient(1200px 600px at 70% -10%, rgba(240, 214, 122, 0.07), transparent 60%),
-    radial-gradient(900px 500px at 10% 110%, rgba(166, 94, 63, 0.05), transparent 60%);
+    radial-gradient(1100px 620px at 78% -12%, rgba(157, 46, 52, 0.13), transparent 62%),
+    radial-gradient(900px 520px at 8% 112%, rgba(181, 141, 69, 0.055), transparent 64%);
 }
 
 /* Hairline rules in brass */
 .rule-brass {
   height: 1px;
-  background: linear-gradient(to right, transparent, var(--color-brass-500) 20%, var(--color-brass-500) 80%, transparent);
-  opacity: 0.5;
+  background: linear-gradient(to right, var(--color-crimson-500), var(--color-brass-500) 68%, transparent);
+  opacity: 0.72;
 }
 
 /* Metallic gold — a struck-leaf sheen for gold borders and buttons.
    Light highlight → warm mid → deep shadow → highlight, catches like metal. */
 .gold-sheen-border {
-  border-image: linear-gradient(135deg, #f7e9ad 0%, #d9b24c 40%, #8f6f2a 58%, #f0d67a 100%) 1;
+  border-image: linear-gradient(135deg, #f0dda0 0%, #c59d50 48%, #9d2e34 100%) 1;
 }
 
 /* Editorial link — underline that settles in */
@@ -128,39 +144,39 @@
    The public site keeps its single editorial palette by design; only the
    portal (its own root layout sets data-theme) swaps these surfaces. */
 html[data-theme="dark"] {
-  --p-bg: #12100d;
-  --p-panel: #17140f;
-  --p-hover: #211d16;
-  --p-input: #12100d;
-  --p-topbar: rgba(18, 16, 13, 0.94);
-  --p-scrim: rgba(18, 16, 13, 0.72);
-  --p-border: rgba(244, 239, 227, 0.1);
-  --p-border-2: rgba(244, 239, 227, 0.2);
-  --p-text: #faf7f0;
-  --p-text-2: rgba(234, 226, 208, 0.78);
-  --p-text-3: rgba(234, 226, 208, 0.55);
-  --p-text-4: rgba(234, 226, 208, 0.36);
-  --p-accent: #f0d67a;
-  --p-accent-2: rgba(224, 189, 90, 0.85);
-  --p-alert: #a65e3f;
+  --p-bg: #141112;
+  --p-panel: #1b1718;
+  --p-hover: #282122;
+  --p-input: #181415;
+  --p-topbar: rgba(20, 17, 18, 0.94);
+  --p-scrim: rgba(20, 17, 18, 0.76);
+  --p-border: rgba(245, 241, 232, 0.12);
+  --p-border-2: rgba(245, 241, 232, 0.22);
+  --p-text: #fbf9f4;
+  --p-text-2: rgba(233, 225, 211, 0.84);
+  --p-text-3: rgba(233, 225, 211, 0.68);
+  --p-text-4: rgba(233, 225, 211, 0.5);
+  --p-accent: #dda1a5;
+  --p-accent-2: #d6bb70;
+  --p-alert: #e0a366;
   color-scheme: dark;
 }
 
 html[data-theme="light"] {
-  --p-bg: #f4efe3;
-  --p-panel: #faf7f0;
-  --p-hover: #ece5d3;
-  --p-input: #faf7f0;
-  --p-topbar: rgba(244, 239, 227, 0.94);
-  --p-scrim: rgba(33, 29, 22, 0.35);
-  --p-border: rgba(33, 29, 22, 0.13);
-  --p-border-2: rgba(33, 29, 22, 0.24);
-  --p-text: #211d16;
-  --p-text-2: rgba(46, 42, 34, 0.8);
-  --p-text-3: rgba(46, 42, 34, 0.6);
-  --p-text-4: rgba(46, 42, 34, 0.42);
-  --p-accent: #9a7628;
-  --p-accent-2: #c99a34;
+  --p-bg: #f5f1e8;
+  --p-panel: #fbf9f4;
+  --p-hover: #eee7dc;
+  --p-input: #fffdf8;
+  --p-topbar: rgba(245, 241, 232, 0.95);
+  --p-scrim: rgba(27, 23, 24, 0.36);
+  --p-border: rgba(48, 42, 41, 0.15);
+  --p-border-2: rgba(48, 42, 41, 0.27);
+  --p-text: #302a29;
+  --p-text-2: rgba(48, 42, 41, 0.84);
+  --p-text-3: rgba(48, 42, 41, 0.66);
+  --p-text-4: rgba(48, 42, 41, 0.5);
+  --p-accent: #9d2e34;
+  --p-accent-2: #876a35;
   --p-alert: #8f4d32;
   color-scheme: light;
 }
@@ -177,14 +193,15 @@ html[data-theme="light"] {
 /* Small caps label */
 .label-caps {
   font-family: var(--font-body);
-  font-size: 0.6875rem;
-  letter-spacing: 0.22em;
+  font-size: 0.75rem;
+  letter-spacing: 0.17em;
+  line-height: 1.45;
   text-transform: uppercase;
 }
 
 /* Focus visibly, quietly */
 :focus-visible {
-  outline: 1px solid var(--color-brass-500);
+  outline: 2px solid var(--color-crimson-400);
   outline-offset: 3px;
 }
 

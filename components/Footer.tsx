@@ -31,7 +31,7 @@ export default function Footer({ locale, dict }: { locale: Locale; dict: Dict })
           <div>
             <BekaMark className="h-14 w-auto" />
             <p className="mt-5 font-display text-xl text-parchment-100">{dict.common.firmFull}</p>
-            <p className="label-caps mt-2 text-brass-400/80">{dict.common.estLine}</p>
+            <p className="label-caps mt-2 text-crimson-300">{dict.common.estLine}</p>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-parchment-200/70">
               {dict.footer.blurb}
             </p>
@@ -45,7 +45,7 @@ export default function Footer({ locale, dict }: { locale: Locale; dict: Dict })
                       rel="noopener noreferrer"
                       aria-label={socialLabel(s.platform)}
                       title={socialLabel(s.platform)}
-                      className="flex h-9 w-9 items-center justify-center border border-parchment-100/15 text-parchment-200/70 transition-colors hover:border-brass-400/60 hover:text-brass-300"
+                    className="flex h-10 w-10 items-center justify-center border border-parchment-100/20 text-parchment-200/80 transition-colors hover:border-crimson-400/70 hover:text-crimson-300"
                     >
                       <SocialIcon platform={s.platform} className="h-4 w-4" />
                     </a>
@@ -102,8 +102,8 @@ export default function Footer({ locale, dict }: { locale: Locale; dict: Dict })
         </div>
 
         <div className="mt-16 border-t border-parchment-100/10 pt-8">
-          <p className="text-xs leading-relaxed text-parchment-200/50">{dict.footer.note}</p>
-          <p className="mt-3 text-xs text-parchment-200/50">
+          <p className="text-xs leading-relaxed text-parchment-200/70">{dict.footer.note}</p>
+          <p className="mt-3 text-xs text-parchment-200/70">
             © {year} {dict.footer.rights}
           </p>
         </div>
