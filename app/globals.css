@@ -1,3 +1,8 @@
+@import "@fontsource/cormorant-garamond/latin.css";
+@import "@fontsource/cormorant-garamond/latin-italic.css";
+@import "@fontsource/outfit/latin.css";
+@import "@fontsource/noto-serif-ethiopic/ethiopic.css";
+@import "@fontsource/noto-sans-ethiopic/ethiopic.css";
 @import "tailwindcss";
 
 @theme {
@@ -32,11 +37,11 @@
   --ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Font tokens reference next/font runtime variables, so they must be
-   inlined at the point of use rather than resolved at :root. */
+/* Fontsource packages keep every face local to the build. This avoids
+   presentation- and deployment-time requests to Google Fonts. */
 @theme inline {
-  --font-display: var(--font-cormorant), var(--font-ethioserif), Georgia, serif;
-  --font-body: var(--font-outfit), var(--font-ethiosans), system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", "Noto Serif Ethiopic", Georgia, serif;
+  --font-body: "Outfit", "Noto Sans Ethiopic", system-ui, sans-serif;
 }
 
 /* base styles live in the base layer so page-level utilities
