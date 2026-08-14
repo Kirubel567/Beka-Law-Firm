@@ -260,7 +260,7 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 14, scale: 0.98 }}
           transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-3 flex h-[min(700px,calc(100svh-6.75rem))] w-[min(420px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-white/55 bg-(--assistant-paper) text-(--assistant-ink) shadow-[0_30px_100px_rgba(20,17,18,0.38),0_8px_28px_rgba(20,17,18,0.2)]"
+          className="mb-3 flex h-[min(700px,calc(100svh-6.75rem))] w-[min(420px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-white/18 bg-(--assistant-paper) text-(--assistant-ink) shadow-[0_30px_100px_rgba(0,0,0,0.58),0_8px_28px_rgba(0,0,0,0.34)]"
         >
           <header className="relative overflow-hidden border-b border-parchment-100/12 bg-[linear-gradient(135deg,#211b1c_0%,#141112_60%,#30191c_100%)] px-5 py-4 text-parchment-100">
             <div className="absolute inset-y-0 right-0 w-40 bg-[radial-gradient(circle_at_top_right,rgba(158,45,51,0.32),transparent_66%)]" aria-hidden="true" />
@@ -288,7 +288,7 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
             </div>
           </header>
 
-          <div className="flex items-start gap-2.5 border-b border-crimson-500/15 bg-(--assistant-brand-soft) px-5 py-3 text-[0.69rem] leading-relaxed text-ink-700/78">
+          <div className="flex items-start gap-2.5 border-b border-white/10 bg-(--assistant-brand-soft) px-5 py-3 text-[0.69rem] leading-relaxed text-parchment-200/78">
             <svg viewBox="0 0 24 24" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-crimson-600" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
               <circle cx="12" cy="12" r="9" /><path d="M12 10v6M12 7h.01" />
             </svg>
@@ -314,10 +314,10 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
                     key={prompt}
                     type="button"
                     onClick={() => void submit(prompt)}
-                    className="group flex items-center justify-between gap-3 rounded-xl border border-(--assistant-border) bg-white/48 px-3.5 py-2.5 text-left text-xs leading-snug transition-all hover:-translate-y-px hover:border-crimson-500/55 hover:bg-white hover:text-crimson-700 hover:shadow-sm"
+                    className="group flex items-center justify-between gap-3 rounded-xl border border-(--assistant-border) bg-(--assistant-panel) px-3.5 py-2.5 text-left text-xs leading-snug text-parchment-200/88 transition-all hover:-translate-y-px hover:border-crimson-400/65 hover:bg-basalt-800 hover:text-crimson-300 hover:shadow-sm"
                   >
                     <span>{prompt}</span>
-                    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0 text-ink-500 transition-transform group-hover:translate-x-0.5 group-hover:text-crimson-600" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0 text-parchment-300/65 transition-transform group-hover:translate-x-0.5 group-hover:text-crimson-300" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
                       <path d="m9 18 6-6-6-6" />
                     </svg>
                   </button>
@@ -329,13 +329,13 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
                 key={message.id}
                 className={`text-sm leading-relaxed ${
                   message.role === "user"
-                    ? "ml-auto max-w-[86%] rounded-2xl rounded-tr-sm bg-basalt-900 px-4 py-3 text-parchment-100 shadow-sm"
+                    ? "ml-auto max-w-[86%] rounded-2xl rounded-tr-sm bg-crimson-600 px-4 py-3 text-parchment-50 shadow-sm"
                     : "max-w-[94%] rounded-2xl rounded-tl-sm border border-(--assistant-border) bg-(--assistant-panel) px-4 py-3 shadow-[0_5px_18px_rgba(48,42,41,0.06)]"
                 }`}
               >
                 <p className="whitespace-pre-wrap">{message.text || (busy ? t.sending : "")}</p>
                 {message.citations.length > 0 && (
-                  <div className="mt-4 border-t border-[#1E222A]/12 pt-3">
+                  <div className="mt-4 border-t border-white/12 pt-3">
                     <p className="text-[0.62rem] font-medium tracking-[0.16em] uppercase">{t.sources}</p>
                     <ol className="mt-2 space-y-1.5 text-[0.7rem] leading-snug">
                       {message.citations.map((citation) => (
@@ -360,7 +360,7 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
                   </div>
                 )}
                 {message.role === "assistant" && message.responseId && !message.failed && (
-                  <div className="mt-3 flex gap-3 text-[0.65rem] text-[#1E222A]/60">
+                  <div className="mt-3 flex gap-3 text-[0.65rem] text-parchment-200/60">
                     <button
                       type="button"
                       disabled={message.rated !== undefined}
@@ -382,7 +382,7 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
               </article>
             ))}
             {busy && (
-              <div className="flex items-center gap-2 pl-9 text-xs text-ink-500">
+              <div className="flex items-center gap-2 pl-9 text-xs text-parchment-200/65">
                 <span className="flex gap-1" aria-hidden="true">
                   <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-crimson-500" />
                   <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-crimson-500 [animation-delay:160ms]" />
@@ -399,7 +399,7 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
               event.preventDefault();
               void submit();
             }}
-            className="border-t border-(--assistant-border) bg-white/58 p-3.5 backdrop-blur-sm"
+            className="border-t border-(--assistant-border) bg-basalt-950 p-3.5"
           >
             <label className="sr-only" htmlFor="beka-assistant-question">{t.placeholder}</label>
             <div className="flex items-end gap-2 rounded-2xl border border-(--assistant-border) bg-(--assistant-panel) p-2 shadow-inner transition-colors focus-within:border-crimson-500/70 focus-within:ring-2 focus-within:ring-crimson-500/8">
@@ -417,7 +417,7 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
                   }
                 }}
                 placeholder={t.placeholder}
-                className="min-h-11 flex-1 resize-none bg-transparent px-2 py-1.5 text-sm leading-relaxed outline-none placeholder:text-ink-500/58"
+                className="min-h-11 flex-1 resize-none bg-transparent px-2 py-1.5 text-sm leading-relaxed text-parchment-100 outline-none placeholder:text-parchment-300/42"
               />
               <button
                 type="submit"
@@ -431,10 +431,10 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
               </button>
             </div>
             <div className="mt-2.5 flex items-center justify-between gap-4 px-1">
-              <Link href={`/${locale}/contact`} className="text-[0.7rem] underline decoration-crimson-500/45 underline-offset-2 hover:text-crimson-600">
+              <Link href={`/${locale}/contact`} className="text-[0.7rem] text-parchment-200/72 underline decoration-crimson-400/55 underline-offset-2 hover:text-crimson-300">
                 {t.contact}
               </Link>
-              <span className="text-[0.64rem] text-ink-500/72">Enter ↵</span>
+              <span className="text-[0.64rem] text-parchment-300/50">Enter ↵</span>
             </div>
           </form>
         </motion.section>
@@ -446,7 +446,7 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
         aria-label={open ? t.close : t.launcher}
-        className={`ml-auto flex h-13 items-center justify-center border border-white/25 bg-crimson-500 text-sm font-medium text-white shadow-[0_14px_38px_rgba(20,17,18,0.3)] transition-all hover:-translate-y-0.5 hover:bg-crimson-600 hover:shadow-[0_18px_44px_rgba(20,17,18,0.34)] ${open ? "w-13 rounded-full" : "gap-2.5 rounded-full px-4.5 tracking-[0.04em]"}`}
+        className={`ml-auto flex h-13 items-center justify-center border border-crimson-400/55 bg-basalt-950 text-sm font-medium text-parchment-50 shadow-[0_14px_38px_rgba(0,0,0,0.46)] transition-all hover:-translate-y-0.5 hover:bg-basalt-800 hover:shadow-[0_18px_44px_rgba(0,0,0,0.54)] ${open ? "w-13 rounded-full" : "gap-2.5 rounded-full px-4.5 tracking-[0.04em]"}`}
       >
         {open ? (
           <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
@@ -454,7 +454,7 @@ export default function LegalAssistant({ locale }: { locale: Locale }) {
           </svg>
         ) : (
           <>
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/14" aria-hidden="true">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-crimson-500" aria-hidden="true">
               <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.7">
                 <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" />
                 <circle cx="12" cy="12" r="3.6" />
