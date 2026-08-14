@@ -23,7 +23,7 @@ export const om: Dict = {
     menu: "Baafata",
     close: "Cufi",
   },
-  chapters: ["I", "II", "III", "IV", "V", "VI", "VII"],
+  chapters: ["I", "II", "III", "IV", "V", "VI"],
   common: {
     firmShort: "BEKA",
     firmFull: "Belay Ketema fi Michoota WHM",
@@ -72,11 +72,6 @@ export const om: Dict = {
         line: "Hojiin mataan isaa — of eeggannoodhaan, maqaa malee himame.",
       },
       {
-        href: "/presence",
-        title: "Argama",
-        line: "Addunyaa lama, sadarkaa tokko: lafa Itoophiyaa, safartuu addunyaa.",
-      },
-      {
         href: "/insights",
         title: "Yaadannoo",
         line: "Muuxannoo hojii irraa barreeffaman — maamiltootaaf malee ogeeyyii seeraatiif miti.",
@@ -121,7 +116,7 @@ export const om: Dict = {
     discretionText:
       "Dhaabbata kana keessatti icciitiin fuula imaammataa miti; seera hojii faayiloonni akkamitti akka qabaman, akka kaa'amanii fi akka waa'ee isaanii dubbatamu murteessudha. Fuula waa'ee isaa qabna — isin amansiisuuf osoo hin taane, maal akka eeggattan sirriitti akka beektaniif.",
     discretionLink: "Fuula icciitii dubbisaa",
-    contactKicker: "Boqonnaa VII · Xalayaa",
+    contactKicker: "Boqonnaa VI · Xalayaa",
     contactTitle: "Callisaan eegalaa.",
     contactText:
       "Afaan filattaniin gabaabaatti barreessaa. Xalayaan keessan michuudhaan dubbifama — giddugala bilbilaatiin hin dabru — guyyoota hojii lama keessattis deebii argata.",
@@ -498,7 +493,7 @@ export const om: Dict = {
     ],
   },
   insights: {
-    kicker: "Boqonnaa VI · Yaadannoo",
+    kicker: "Boqonnaa V · Yaadannoo",
     title: "Yaadannoo hojii irraa.",
     lede: "Kan barreeffaman namoota murtee murteessaniif malee ogeeyyii seeraa birootiif miti. Dubbisuuf gahaa gabaabaa, akka ka'umsaatti amanamuuf gahaa of-eeggannoo qabu — akka gorsaatti garuu gonkumaa miti.",
     readArticle: "Yaadannoo dubbisaa",
