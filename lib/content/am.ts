@@ -628,7 +628,14 @@ export const am: Dict = {
     },
     office: {
       title: "ቢሮው",
-      lines: ["በላይ ከተማ እና አጋሮች የሕግ ሽርክና ማኅበር", "አዲስ አበባ፣ ኢትዮጵያ"],
+      lines: [
+        "በላይ ከተማ እና አጋሮች የሕግ ሽርክና ማኅበር",
+        "ከክሊፋ ሳቢት ሕንፃ",
+        "ሳውዝ አፍሪካ ጎዳና፣ ቢሮ ቁጥር A200–A201",
+        "አዲስ አበባ፣ ኢትዮጵያ",
+      ],
+      mapLabel: "በካርታ ይክፈቱ",
+      mapTitle: "የበላይ ከተማ እና አጋሮች ቢሮ አድራሻ",
       emailLabel: "ኢሜይል",
       email: "info@bekalawfirm.com",
       phoneLabel: "ስልክ",

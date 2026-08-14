@@ -219,6 +219,8 @@ export interface Dict {
     office: {
       title: string;
       lines: string[];
+      mapLabel: string;
+      mapTitle: string;
       emailLabel: string;
       email: string;
       phoneLabel: string;
