@@ -16,6 +16,13 @@
   --color-basalt-700: #c44f55;
   --color-basalt-600: #cb767b;
 
+  /* Shared assistant accents — tied to the logo's exact crimson. */
+  --color-crimson-300: #d8898d;
+  --color-crimson-400: #bd565c;
+  --color-crimson-500: #9e2d33;
+  --color-crimson-600: #84262c;
+  --color-crimson-700: #6b1f24;
+
   --color-parchment-50: #faf7f0;
   --color-parchment-100: #f4efe3;
   --color-parchment-200: #eae2d0;
@@ -49,6 +56,13 @@
 @layer base {
   :root {
     color-scheme: light;
+    --assistant-ink: #211b1c;
+    --assistant-paper: #f7f2e9;
+    --assistant-panel: #fffdf8;
+    --assistant-brand: #9e2d33;
+    --assistant-brand-hover: #84262c;
+    --assistant-brand-soft: #f2e6e3;
+    --assistant-border: rgba(48, 42, 41, 0.18);
   }
 
   html {
