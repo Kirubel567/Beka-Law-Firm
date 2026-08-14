@@ -628,7 +628,14 @@ export const en: Dict = {
     },
     office: {
       title: "The office",
-      lines: ["Belay Ketema & Partners LLP", "Addis Ababa, Ethiopia"],
+      lines: [
+        "Belay Ketema & Partners LLP",
+        "Keklifa Sabit Building",
+        "South Africa Street, Office No. A200–A201",
+        "Addis Ababa, Ethiopia",
+      ],
+      mapLabel: "Open in Maps",
+      mapTitle: "Belay Ketema & Partners office location",
       emailLabel: "Email",
       email: "info@bekalawfirm.com",
       phoneLabel: "Telephone",
