@@ -628,7 +628,14 @@ export const om: Dict = {
     },
     office: {
       title: "Waajjira",
-      lines: ["Belay Ketema fi Michoota WHM", "Finfinnee, Itoophiyaa"],
+      lines: [
+        "Belay Ketema fi Michoota WHM",
+        "Gamoo Keklifa Sabit",
+        "Daandii South Africa, Waajjira Lakk. A200–A201",
+        "Finfinnee, Itoophiyaa",
+      ],
+      mapLabel: "Kaartaa irratti bani",
+      mapTitle: "Teessoo waajjira Belay Ketema fi Michootaa",
       emailLabel: "Imeelii",
       email: "info@bekalawfirm.com",
       phoneLabel: "Bilbila",
