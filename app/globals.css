@@ -17,7 +17,7 @@
   /* The exact logo red anchors the brand without becoming a full-page ground. */
   --color-crimson-300: #dda1a5;
   --color-crimson-400: #c9686f;
-  --color-crimson-500: #9d2e34;
+  --color-crimson-500: #9e2d33;
   --color-crimson-600: #84262c;
   --color-crimson-700: #681d22;
 
@@ -52,9 +52,9 @@
     --assistant-ink: #211b1c;
     --assistant-paper: #f7f2e9;
     --assistant-panel: #fffdf8;
-    --assistant-brand: #9d2e34;
+    --assistant-brand: #9e2d33;
     --assistant-brand-hover: #84262c;
-    --assistant-brand-soft: rgba(157, 46, 52, 0.08);
+    --assistant-brand-soft: rgba(158, 45, 51, 0.08);
     --assistant-border: rgba(48, 42, 41, 0.18);
   }
 
@@ -102,7 +102,7 @@
 .basalt-relief {
   background-color: var(--color-basalt-900);
   background-image:
-    radial-gradient(1100px 620px at 78% -12%, rgba(157, 46, 52, 0.13), transparent 62%),
+    radial-gradient(1100px 620px at 78% -12%, rgba(158, 45, 51, 0.13), transparent 62%),
     radial-gradient(900px 520px at 8% 112%, rgba(181, 141, 69, 0.055), transparent 64%);
 }
 
@@ -116,7 +116,7 @@
 /* Metallic gold — a struck-leaf sheen for gold borders and buttons.
    Light highlight → warm mid → deep shadow → highlight, catches like metal. */
 .gold-sheen-border {
-  border-image: linear-gradient(135deg, #f0dda0 0%, #c59d50 48%, #9d2e34 100%) 1;
+  border-image: linear-gradient(135deg, #f0dda0 0%, #c59d50 48%, #9e2d33 100%) 1;
 }
 
 /* Editorial link — underline that settles in */
@@ -175,7 +175,7 @@ html[data-theme="light"] {
   --p-text-2: rgba(48, 42, 41, 0.84);
   --p-text-3: rgba(48, 42, 41, 0.66);
   --p-text-4: rgba(48, 42, 41, 0.5);
-  --p-accent: #9d2e34;
+  --p-accent: #9e2d33;
   --p-accent-2: #876a35;
   --p-alert: #8f4d32;
   color-scheme: light;

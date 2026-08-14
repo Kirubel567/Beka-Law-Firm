@@ -58,7 +58,7 @@ export default function Header({ locale, dict }: { locale: Locale; dict: Dict })
     <header
       className={`fixed inset-x-0 top-0 z-50 text-parchment-100 transition-all duration-700 ${
         scrolled || open
-          ? "bg-basalt-950/97 shadow-[0_1px_0_0_rgba(157,46,52,0.42)] backdrop-blur-md"
+          ? "bg-basalt-950/97 shadow-[0_1px_0_0_rgba(158,45,51,0.42)] backdrop-blur-md"
           : "bg-gradient-to-b from-basalt-950/90 via-basalt-950/45 to-transparent"
       }`}
     >
